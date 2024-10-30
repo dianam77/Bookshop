@@ -1,0 +1,98 @@
+﻿@using DataAccess.Models
+@model List<BasketItems>
+
+@{
+    ViewData["Title"] = "سبد خرید";
+}
+
+<div class="cart-container">
+    <h2>سبد خرید</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>عنوان</th>
+                <th>تعداد</th>
+                <th>قیمت</th>
+                <th> </th>
+            </tr>
+        </thead>
+        <tbody id="table">
+            @foreach (var item in Model)
+            {
+                <tr id="basket_@item.Id">
+                    <td>
+                        <div class="ImgAndName">
+                            <img src="/api/File/GetFile?filename=@item.Book.Img" alt="Product 1" class="product-img">
+                            <p> @item.Book.Title                              </p>
+                        </div>
+                    </td>
+                    <td>@item.Qty</td>
+                    <td class="subtotal">@item.Price تومان</td>
+                    <td><i onclick="Remove(@item.Id)" style="color:red; cursor:pointer" class="fa fa-trash"></i></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+   
+ 
+    <form id="paymentForm" asp-controller="Payment" asp-action="Index" method="post">
+        <!-- Hidden field for sending total amount to the controller -->
+        <input type="hidden" id="totalPrice" name="totalPrice" />
+        <button type="button" style="margin-top: 10px;" class="cartBtn" onclick="submitForm()">پرداخت</button>
+    </form>
+</div>
+
+@section Scripts{
+    <script>
+        // محاسبه مجموع سبد خرید
+        function calculateTotal() {
+            let total = 0;
+            const subtotals = document.querySelectorAll('.subtotal');
+            subtotals.forEach(subtotal => {
+                const price = parseInt(subtotal.textContent.replace(/ تومان/g, ''));
+                total += price;
+            });
+            return total; // Return the total amount
+        }
+
+        // Set the total price and submit the form
+        function submitForm() {
+            const total = calculateTotal();
+            document.getElementById('totalPrice').value = total; // Set the hidden input's value
+
+            console.log("Total Price Set: " + total); // Debugging to ensure total is set
+
+            // Submit the form programmatically after setting totalPrice
+            document.getElementById('paymentForm').submit();
+        }
+        // حذف آیتم از سبد خرید
+        function Remove(id) {
+            var data = { Id: id };
+
+            try {
+                fetch('/Order/RemoveBasket', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const row = document.getElementById("basket_" + id);
+                    row.style.display = "none";
+                    calculateTotal(); // بروزرسانی مجموع بعد از حذف
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+            } catch {
+                // مدیریت خطا
+            }
+        }
+
+
+    </script>
+}
+

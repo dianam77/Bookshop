@@ -1,0 +1,30 @@
+﻿@model DataAccess.Models.Payment
+
+<h2>پرداخت آنلاین</h2>
+
+<form asp-action="ProcessPayment" method="post">
+    <div>
+        <label>شماره کارت:</label>
+        <input type="text" asp-for="CardNumber" required pattern="\d{16}" title="Please enter a valid 16-digit card number" />
+    </div>
+    <div>
+        <label>نام دارنده کارت:</label>
+        <input type="text" asp-for="CardHolderName" required title="Please enter the cardholder's name" />
+    </div>
+    <div>
+        <label>تاریخ انقضا (MM/YY):</label>
+        <input type="text" asp-for="ExpiryDate" required pattern="(0[1-9]|1[0-2])\/?([0-9]{2})" title="Please enter a valid expiry date in the format MM/YY" />
+    </div>
+    <div>
+        <label>CVV:</label>
+        <input type="text" asp-for="CVV" required pattern="\d{3,4}" title="Please enter a valid 3 or 4-digit CVV" />
+    </div>
+    <div>
+        <label>مبلغ:</label>
+        <input type="number" asp-for="Amount" readonly required />
+    </div>
+    <form asp-action="ProcessPayment" method="post">
+        <!-- Form fields -->
+        <button type="submit">پرداخت</button>
+    </form>
+</form>
