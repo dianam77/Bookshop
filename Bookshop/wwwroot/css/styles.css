@@ -179,7 +179,86 @@ body.dark-mode p {
     color: #ffffff; /* متن سفید برای حالت تاریک */
 }
 
+/* Rotation animation */
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
 
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Scaling animation */
+@keyframes scale {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Bounce animation */
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+/* Pulse animation */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Apply animations to the icon */
+.animate-rotate {
+    animation: rotate 2s linear infinite;
+}
+
+.animate-scale {
+    animation: scale 1.5s ease-in-out infinite;
+}
+
+.animate-bounce {
+    animation: bounce 1s ease-in-out infinite;
+}
+
+.animate-pulse {
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+
+
+.icon-container {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+/* Apply the animations to the book symbol */
+.book-symbol-container i {
+    animation: rotate 2s linear infinite, scale 1.5s ease-in-out infinite;
+}
 
 /* Dark Mode Toggle Button */
 .dark-mode-toggle {

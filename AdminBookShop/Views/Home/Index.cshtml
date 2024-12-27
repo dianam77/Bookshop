@@ -7,21 +7,31 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewData["Title"]</title>
+
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet"> <!-- AOS Library for animations -->
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
 </head>
+
 <body class="bg-gradient-to-r from-blue-300 via-pink-200 to-blue-400 min-h-screen">
 
     <div class="container mx-auto p-6">
-        <!-- Title -->
-        <h1 class="text-4xl font-extrabold text-center text-black mb-8">لیست سفارشات</h1>
+        <!-- Title with Slide-In Animation -->
+        <h1 class="text-4xl font-extrabold text-center text-black mb-8" data-aos="fade-up">لیست سفارشات</h1>
 
-     
-        <!-- Orders Table -->
-        <div class="overflow-x-auto bg-white shadow-xl rounded-xl p-6">
+        <!-- Add Book Icon with Animation -->
+        <div class="flex justify-center mt-12">
+            <i class="fas fa-book text-6xl text-white-500" data-aos="zoom-in"></i> <!-- Set the icon color to blue -->
+        </div>
+
+        <!-- Orders Table without animation -->
+        <div class="overflow-x-auto bg-white shadow-xl rounded-xl p-6 mt-8">
             <table class="table-auto w-full text-gray-800">
                 <thead>
                     <tr class="bg-gray-700 text-white">
@@ -71,5 +81,9 @@
         </div>
     </div>
 
+
+    <!-- Add Font Awesome Library for Book Icon -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 </body>
+
 </html>
