@@ -22,20 +22,25 @@
             <h4 class="text-xl font-semibold text-gray-700">مشخصات نویسنده را وارد کنید</h4>
             <hr class="border-t-2 border-gray-400 mb-6" />
 
-            <!-- Validation Summary -->
-            <div asp-validation-summary="ModelOnly" class="text-red-500 mb-4"></div>
+            <!-- Begin Form -->
+            <form asp-action="Create" method="post">
+                @Html.AntiForgeryToken()
 
-            <!-- Name Field -->
-            <div class="form-group">
-                <label asp-for="Name" class="block text-lg font-semibold text-gray-800">نام</label>
-                <input asp-for="Name" class="form-control mt-2 p-3 border-2 border-gray-300 rounded-lg shadow-md focus:ring-4 focus:ring-blue-500 w-full" />
-                <span asp-validation-for="Name" class="text-red-500"></span>
-            </div>
+                <!-- Validation Summary -->
+                <div asp-validation-summary="ModelOnly" class="text-red-500 mb-4"></div>
 
-            <!-- Submit Button -->
-            <div class="form-group">
-                <input type="submit" value="ذخیره" class="btn px-6 py-3 bg-gradient-to-r from-indigo-500 via-purple-500 to-blue-500 hover:bg-gradient-to-l text-white font-semibold rounded-lg shadow-md w-full transition duration-300 ease-in-out transform hover:scale-105" />
-            </div>
+                <!-- Name Field -->
+                <div class="form-group">
+                    <label asp-for="Name" class="block text-lg font-semibold text-gray-800">نام</label>
+                    <input asp-for="Name" class="form-control mt-2 p-3 border-2 border-gray-300 rounded-lg shadow-md focus:ring-4 focus:ring-blue-500 w-full" />
+                    <span asp-validation-for="Name" class="text-red-500"></span>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="form-group">
+                    <input type="submit" value="ذخیره" class="btn px-6 py-3 bg-gradient-to-r from-indigo-500 via-purple-500 to-blue-500 hover:bg-gradient-to-l text-white font-semibold rounded-lg shadow-md w-full transition duration-300 ease-in-out transform hover:scale-105" />
+                </div>
+            </form>
         </div>
 
         <!-- Back Link -->
