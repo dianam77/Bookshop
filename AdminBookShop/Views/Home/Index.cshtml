@@ -36,7 +36,7 @@
                 <thead>
                     <tr class="bg-gray-700 text-white">
                         <th class="px-6 py-4 text-lg font-semibold">کاربر</th>
-                        <th class="px-6 py-4 text-lg font-semibold">شماره موبایل</th>
+                        <th class="px-6 py-4 text-lg font-semibold">تعداد</th>
                         <th class="px-6 py-4 text-lg font-semibold">تاریخ</th>
                         <th class="px-6 py-4 text-lg font-semibold">وضعیت</th>
                         <th class="px-6 py-4 text-lg font-semibold">محصولات</th>
@@ -49,7 +49,7 @@
                     {
                         <tr class="border-b hover:bg-gray-100">
                             <td class="px-4 py-2">@item.UserName</td>
-                            <td class="px-4 py-2">@item.Mobile</td>
+                            <td class="px-4 py-2">@item.Items.Count</td>
                             <td class="px-4 py-2">@item.Payed.ToPersianDateString()</td>
                             <td class="px-4 py-2">
                                 @if (item.Status == DataAccess.Enums.Status.Accepted)
