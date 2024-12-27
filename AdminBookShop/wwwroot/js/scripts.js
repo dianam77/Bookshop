@@ -1,14 +1,8 @@
-﻿
-var navbtn = document.getElementById("mynavbtn");
-var desktopnav = document.getElementById("desktopnav");
+﻿document.addEventListener('DOMContentLoaded', () => {
+    const myNavBtn = document.getElementById('mynavbtn');
+    const desktopNav = document.getElementById('desktopnav');
 
-navbtn.addEventListener("click", () => {
-
-    if (desktopnav.style.display == "flex") {
-        desktopnav.style.display = "none";
-    } else {
-        desktopnav.style.display = "flex";
-        desktopnav.style.flexDirection = "column";
-    }
-
-})
+    myNavBtn.addEventListener('click', function () {
+        desktopNav.classList.toggle('active');  // Toggle the 'active' class to show/hide the menu
+    });
+});

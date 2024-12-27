@@ -6,51 +6,53 @@
     <title>@ViewData["Title"] - AdminBookShop</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <link rel="stylesheet" href="~/AdminBookShop.styles.css" asp-append-version="true" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://jsuites.net/v5/jsuites.css" type="text/css" />
+    <script src="https://jsuites.net/v5/jsuites.js"></script>
+    <script src="https://jsuites.net/v5/jsuites.webcomponents.js"></script>
+
 </head>
 <body>
     <header>
+        <div dir="rtl" style="font-family: bykan;">
+            <!-- Navbar -->
+            <nav class="nav">
+                <!-- Hamburger Button (visible on small screens) -->
+                <div class="mobilenav">
+                    <i id="mynavbtn" class="fa fa-bars"></i>
+                </div>
 
-        <!-- navbar -->
-        <nav class="nav">
-            <div class="mobilenav hidden">
-                <i id="mynavbtn" class="fa fa-bars"></i>
-
-            </div>
-
-            <div id="desktopnav" class="navbar">
-                
-                <li class="nav-item">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Authors" asp-action="Index">نویسنده</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Books" asp-action="Index">کتاب ها</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Orders" asp-action="Index">سفارشات</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Comments" asp-action="Index">نظرات</a>
-                </li>
-                </ul>
-            </div>
-
-        </nav>
+                <!-- Navbar Links (Desktop and mobile toggle) -->
+                <div id="desktopnav" class="navbar">
+                    <a   asp-controller="Authors" asp-action="Index">نویسنده</a>
+                    <a  asp-controller="Books" asp-action="Index">کتاب ها</a>
+                    <a  asp-controller="Orders" asp-action="Index">سفارشات</a>
+                    <a  asp-controller="Comments" asp-action="Index">نظرات</a>
+                </div>
+            </nav>
+        </div>
     </header>
+
+    <br />
+    <br />
+    <br />
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-       
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script src="~/js/scripts.js" asp-append-version="true"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+
+
     @await RenderSectionAsync("Scripts", required: false)
+
 </body>
 </html>

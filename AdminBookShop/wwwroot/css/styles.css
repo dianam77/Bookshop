@@ -1,57 +1,143 @@
-html {
-  font-size: 14px;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
-body {
-  margin-bottom: 60px;
+@font-face {
+    font-family: Bykan;
+    src: url("../assets/font/B_Yekan/Yekan.ttf");
 }
 
 
+/* General Styles */
+.hidden {
+    display: none; /* Hide the element */
+}
+
+
+
+/* Navbar container styles */
+.nav {
+    background: transparent; /* No background color */
+    padding: 20px 0; /* Adjust top/bottom padding for navbar height */
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    display: flex;
+    justify-content: center; /* Center the navbar content */
+    align-items: center; /* Vertically center the navbar content */
+}
+
+/* Navbar Links */
 .navbar {
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly; /* Evenly distribute items */
+    align-items: center; /* Vertically center the items */
+    width: 80%; /* Adjust width of navbar to create some spacing around */
 }
 
     .navbar a {
-        margin: 10px;
-        font-size: 22px;
-        color: black;
+        color: black; /* Black text color for links */
+        padding: 5px 10px; /* Reduced padding for smaller gap */
+        font-size: 18px;
+        text-decoration: none; /* Remove underline */
         cursor: pointer;
+        margin: 0; /* No extra margin between links */
+        font-weight: bolder; /* Make the text bolder */
     }
 
+        /* Hover effect for navbar links */
         .navbar a:hover {
-            color: purple;
+            color: #0d8ab0; /* Optional: change color on hover */
         }
 
-.mobilenav i {
-    color: whitesmoke;
+/* Mobile Navigation */
+.mobilenav {
+    display: flex;
+    justify-content: center; /* Center the hamburger icon */
+    align-items: center;
+    width: 100%; /* Make sure it takes full width */
 }
 
+    .mobilenav i {
+        font-size: 30px;
+        color: black; /* Black icon color */
+        cursor: pointer;
+        margin-right: 10px;
+    }
 
+/* Styles for mobile and desktop nav links */
+#desktopnav a {
+    color: black; /* Black text color for links */
+    padding: 10px 15px; /* Adjust padding for spacing */
+    font-size: 18px;
+    text-decoration: none; /* Remove underline */
+    font-weight: bolder; /* Make the text bolder */
+    cursor: pointer;
+}
 
-@media(max-width:600px) {
+    /* Hover effect for navbar links */
+    #desktopnav a:hover {
+        color: #0d8ab0; /* Change color on hover */
+    }
+
+#desktopnav {
+    display: none; /* Hidden by default for mobile */
+    flex-direction: column; /* Stack items vertically for mobile */
+    background: transparent; /* No background for mobile menu */
+    position: absolute;
+    top: 60px; /* Below the navbar button */
+    width: 100%; /* Full width for mobile */
+    z-index: 1000;
+    text-align: center; /* Center text in mobile dropdown */
+}
+
+    /* Show the mobile menu when 'active' class is added */
+    #desktopnav.active {
+        display: flex; /* Show menu */
+    }
+
+/* Responsive Media Queries */
+
+/* For Mobile & Small Tablets (max-width: 1024px) */
+@media (max-width: 1024px) {
     .mobilenav {
         display: flex;
-        justify-content: space-between;
+        justify-content: center; /* Center hamburger icon */
+        align-items: center;
+        width: 100%;
+        padding: 0 10px;
+    }
+
+    #desktopnav {
+        flex-direction: column;
+        text-align: center; /* Center text in mobile view */
     }
 
     .navbar {
-        display: none;
+        display: none; /* Hide navbar items on tablets and small desktops */
+    }
+
+    /* Ensure the hamburger icon and menu are visible */
+    .mobilenav i {
+        font-size: 30px;
+        color: black; /* Black icon color */
+        cursor: pointer;
     }
 }
 
+/* For Larger Screens */
+@media (min-width: 1025px) {
+    .mobilenav {
+        display: none; /* Hide mobile menu button */
+    }
+
+    #desktopnav {
+        display: flex; /* Show navbar links */
+        flex-direction: row; /* Align items horizontally */
+        background-color: transparent; /* No background color for desktop */
+        position: static;
+        justify-content: space-evenly; /* Evenly space items */
+        text-align: center; /* Ensure text is centered */
+    }
+
+    .navbar {
+        display: flex; /* Show navbar items on larger screens */
+    }
+}
