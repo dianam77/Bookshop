@@ -3,13 +3,18 @@
     src: url("../assets/font/B_Yekan/Yekan.ttf");
 }
 
-
 /* General Styles */
 .hidden {
     display: none; /* Hide the element */
 }
 
+a {
+    text-decoration: none; /* Remove underline from links */
+}
 
+body {
+    transition: background-color 0.3s, color 0.3s;
+}
 
 /* Navbar container styles */
 .nav {
@@ -34,12 +39,12 @@
 
     .navbar a {
         color: black; /* Black text color for links */
-        padding: 5px 10px; /* Reduced padding for smaller gap */
-        font-size: 18px;
+        padding: 10px 15px; /* Adjust padding for spacing */
+        font-size: 25px;
         text-decoration: none; /* Remove underline */
         cursor: pointer;
         margin: 0; /* No extra margin between links */
-        font-weight: bolder; /* Make the text bolder */
+        font-weight: 900; /* Very bold font weight (extra bold) */
     }
 
         /* Hover effect for navbar links */
@@ -66,9 +71,9 @@
 #desktopnav a {
     color: black; /* Black text color for links */
     padding: 10px 15px; /* Adjust padding for spacing */
-    font-size: 18px;
+    font-size:  25px;
     text-decoration: none; /* Remove underline */
-    font-weight: bolder; /* Make the text bolder */
+    font-weight: 900; /* Very bold font weight */
     cursor: pointer;
 }
 
@@ -80,12 +85,13 @@
 #desktopnav {
     display: none; /* Hidden by default for mobile */
     flex-direction: column; /* Stack items vertically for mobile */
-    background: transparent; /* No background for mobile menu */
+    background-color: rgba(255, 255, 255, 0.9); /* White background with 90% opacity */
     position: absolute;
     top: 60px; /* Below the navbar button */
     width: 100%; /* Full width for mobile */
     z-index: 1000;
     text-align: center; /* Center text in mobile dropdown */
+    padding: 20px 0; /* Some padding for spacing */
 }
 
     /* Show the mobile menu when 'active' class is added */
