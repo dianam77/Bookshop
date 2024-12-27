@@ -73,13 +73,14 @@
             <form asp-action="Reply">
                 <input type="hidden" name="commentId" value="@Model.Id" />
                 <div class="mt-4">
-                    <textarea name="replyText" class="w-full p-4 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Enter your reply here"></textarea>
+                    <textarea name="replyText" class="w-full p-4 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Enter your reply here" required></textarea>
                 </div>
                 <div class="mt-6 text-center">
                     <input type="submit" value="پاسخ" class="px-6 py-3 bg-gradient-to-r from-pink-500 to-blue-500 hover:bg-gradient-to-l text-white font-semibold rounded-lg shadow-md transition duration-300 transform hover:scale-105" />
                 </div>
             </form>
         </div>
+
 
         <!-- Back to List -->
         <div class="text-center mt-8">
