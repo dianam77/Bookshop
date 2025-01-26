@@ -1,0 +1,28 @@
+﻿@model List<DataAccess.Models.Payment>
+
+<h2>تاریخچه پرداخت‌ها</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>شماره کارت</th>
+            <th>نام دارنده کارت</th>
+            <th>مبلغ</th>
+            <th>تاریخ پرداخت</th>
+            <th>وضعیت</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var payment in Model)
+        {
+            <tr>
+                <td>@payment.CardNumber</td>
+                <td>@payment.CardHolderName</td>
+                <td>@payment.Amount</td>
+                <td>@payment.PaymentDate</td>
+                <td>@(payment.IsSuccess ? "موفق" : "ناموفق")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+}

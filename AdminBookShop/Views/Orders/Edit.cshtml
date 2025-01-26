@@ -1,0 +1,105 @@
+﻿@{
+    ViewData["Title"] = "Edit";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body class="bg-gradient-to-r from-blue-50 to-blue-200 min-h-screen">
+
+    <div class="container mx-auto p-6">
+
+        <!-- Title -->
+        <h1 class="text-4xl font-extrabold text-center text-blue-800 mb-8">ویرایش سفارش</h1>
+
+        <!-- Order Details Card -->
+        <div class="bg-white shadow-2xl rounded-xl p-8 mb-8">
+            <h4 class="text-2xl font-bold text-blue-700 mb-6">مشخصات سفارش</h4>
+            <hr class="mb-6 border-blue-400">
+
+            <!-- Order Details Grid using Flex for neat alignment -->
+            <dl class="space-y-6">
+                <div class="flex justify-between items-center">
+                    <dt class="font-semibold text-gray-700 w-1/3">کاربر</dt>
+                    <dd class="text-gray-800 w-2/3">@Model.UserName</dd>
+                </div>
+            
+                <div class="flex justify-between items-center">
+                    <dt class="font-semibold text-gray-700 w-1/3">تعداد</dt>
+                    <dd class="text-gray-800 w-2/3">@Model.Items.Count</dd>
+                </div>
+                <div class="flex justify-between items-center">
+                    <dt class="font-semibold text-gray-700 w-1/3">محصولات</dt>
+                    <dd class="text-gray-800 w-2/3">@string.Join(",", Model.Items)</dd>
+                </div>
+            </dl>
+
+            <!-- Hidden Input for Order ID -->
+            <input type="hidden" value="@Model.Id" id="myId" />
+
+            <!-- Action Buttons -->
+            <div class="mt-8 flex justify-center gap-6">
+                <!-- Approve Button -->
+                <button onclick="State(true)" class="px-6 py-3 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all transform hover:scale-105">
+                    تایید
+                </button>
+
+                <!-- Reject Button -->
+                <button onclick="State(false)" class="px-6 py-3 text-white bg-red-600 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition-all transform hover:scale-105">
+                    رد
+                </button>
+
+                <!-- Back to List Button -->
+                <a href="@Url.Action("Index")" class="px-6 py-3 text-blue-800 border-2 border-blue-600 rounded-lg hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all transform hover:scale-105">
+                    بازگشت به لیست
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <br />
+    <br />
+
+    @section Scripts {
+        <script>
+            function State(state) {
+                const id = document.getElementById("myId").value;
+                const data = {
+                    Id: id,
+                    State: state
+                };
+
+                fetch('/Orders/SetStatusCommand', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                    .then(response => response.json())
+                    .then(() => {
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: state ? 'success' : 'error',
+                            title: state ? 'Order is Accepted' : 'Order is Rejected',
+                            showConfirmButton: false,
+                            timer: 1500,
+                            background: '#f0f9ff',
+                            color: state ? '#0c4a6e' : '#9b2c2c'  // Blue for success, Red for error
+                        });
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                    });
+            }
+        </script>
+    }
+
+</body>
+</html>

@@ -1,0 +1,1460 @@
+﻿@font-face {
+    font-family: IranSans;
+    src: url("../assets/font/iransans/Sans a4fran3.ttf");
+}
+
+.container {
+    width: 100%;
+    margin: 20px auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.hidden {
+    display: none;
+}
+
+body {
+    margin: 0%;
+    padding-top: 80px; /* Adjust this value based on the height of your navbar */
+}
+
+a {
+    text-decoration: none;
+}
+/* Navbar container styles */
+.nav {
+    background-color: black;
+    padding: 20px 0; /* Adjust top/bottom padding for navbar height */
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Vertically center the navbar content */
+}
+
+.navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Vertically center the links and logo */
+}
+
+    .navbar a {
+        margin: 10px;
+        font-size: 22px;
+        color: white;
+        cursor: pointer;
+    }
+
+        .navbar a:hover {
+            color: #0d8ab0;
+        }
+
+    .navbar img {
+        height: 120px; /* Adjust the height of the logo */
+        width: auto; /* Maintain aspect ratio */
+        margin-left: 20px; /* Add some space between the links and logo */
+    }
+
+.mobilenav i {
+    color: whitesmoke;
+}
+body {
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.dark-mode {
+    background-color: #808080;
+    color: #ffffff;
+}
+
+/* Navbar Styling */
+.nav {
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.dark-mode .nav {
+    background-color: rgb(51, 51, 51);
+}
+
+.dark-mode .navbar {
+    background-color: rgb(51, 51, 51);
+    color: #ffffff;
+}
+
+.dark-mode .atext {
+    color: #ffffff;
+}
+
+body.dark {
+    background-color: #444; /* Dark gray background */
+    color: white; /* White text for readability */
+}
+
+    /* Containers in Dark Mode */
+    body.dark main,
+    body.dark .container {
+        background-color: #555; /* Medium gray for containers */
+        color: white; /* White text for content */
+        padding: 20px; /* Optional padding for better spacing */
+        border-radius: 8px; /* Optional: Rounded corners for modern design */
+    }
+
+    /* Headers in Dark Mode */
+    body.dark h1 {
+        color: white; /* Ensure h1 is white */
+    }
+
+    /* Apply Gray Background and White Text to All Components */
+    body.dark .myHeader,
+    body.dark .headerItems,
+    body.dark .swiper-container,
+    body.dark .swiper-wrapper,
+    body.dark .swiper-slide,
+    body.dark .btn,
+    body.dark .book-info,
+    body.dark textarea,
+    body.dark input[type="number"],
+    body.dark input[type="hidden"] {
+        background-color: #555; /* Uniform medium gray */
+        color: white; /* White text */
+    }
+
+    /* Buttons with Border in Dark Mode */
+    body.dark .btn {
+        border: 1px solid white; /* White border for visibility */
+    }
+
+
+
+    /* Links in Dark Mode */
+    body.dark a {
+        color: lightblue; /* Highlight links in light blue */
+    }
+
+
+body.dark .search-container {
+    background-color: #333;
+}
+
+    body.dark #search-btn {
+        background-color: #666;
+        color: #fff;
+    }
+
+    body.dark .bookitem {
+        background-color: #555;
+    }
+
+    body.dark .pagination a {
+        border-color: #777;
+        color: #ddd;
+    }
+
+    body.dark .pagination .active {
+        background-color: #999;
+        color: #000;
+    }
+
+    body.dark .dark-toggle-btn {
+        background-color: #fff;
+        color: #000;
+    }
+
+    body.dark h1, body.dark h2, body.dark p {
+        color: #fff;
+    }
+    body.dark .nav{
+        color:#333;
+    }
+    body.dark .navbar{
+        color: #333;
+    }
+body.dark-mode p {
+    background-color: transparent; /* پس‌زمینه حذف شده */
+    color: #ffffff; /* متن سفید برای حالت تاریک */
+}
+
+/* Rotation animation */
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Scaling animation */
+@keyframes scale {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Bounce animation */
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+/* Pulse animation */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Apply animations to the icon */
+.animate-rotate {
+    animation: rotate 2s linear infinite;
+}
+
+.animate-scale {
+    animation: scale 1.5s ease-in-out infinite;
+}
+
+.animate-bounce {
+    animation: bounce 1s ease-in-out infinite;
+}
+
+.animate-pulse {
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+
+
+.icon-container {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+/* Apply the animations to the book symbol */
+.book-symbol-container i {
+    animation: rotate 2s linear infinite, scale 1.5s ease-in-out infinite;
+}
+
+/* Dark Mode Toggle Button */
+.dark-mode-toggle {
+    width: 30px;
+    height: 30px;
+    padding: 5px;
+    font-size: 14px;
+    border-radius: 50%;
+}
+
+body.dark {
+    background-color: #333; /* Dark gray background */
+    color: white; /* White text for readability */
+}
+/* تنظیمات برای modal */
+#myModal {
+    display: none; /* در حالت عادی نمایش داده نمی‌شود */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* پس‌زمینه نیمه‌شفاف */
+    z-index: 2000; /* مقدار z-index بالاتر از navbar */
+    overflow: auto; /* برای قابلیت اسکرول محتوای مودال در صورت نیاز */
+}
+.myHeader {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 8px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.headerItems {
+    flex: 1;
+    margin: 10px;
+}
+
+.headImg {
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+h1 {
+    text-align: center;
+    color: #333; /* Default color for light mode */
+    transition: color 0.3s; /* Smooth transition between themes */
+}
+
+.dark-mode h1 {
+    color: #ffffff; /* White text color for dark mode */
+}
+
+.headImg:hover {
+    transform: scale(1.05);
+}
+
+.bookPrice {
+    margin-top: 15px;
+}
+
+    .bookPrice strong {
+        font-size: 1.5em;
+        transition: color 0.3s;
+    }
+
+.modal-content {
+    transition: background-color 0.3s, color 0.3s;
+    border-radius: 8px;
+}
+
+.dark-mode .modal-content {
+    background-color: #363131; /* Specific dark mode background */
+    color: #ffffff; /* White text for dark mode */
+}
+@media (min-width: 750px) and (max-width: 1024px) 
+ {
+    #myModal {
+        background-color: rgba(0, 0, 0, 0.7); /* Slightly darker overlay */
+    }
+
+    .modal-content {
+        width: 90%; /* Make modal content take more space */
+        padding: 15px;
+        max-width: 700px; /* Limit the max width */
+    }
+
+        /* Handle images and text inside modal for tablet view */
+        .modal-content img {
+            max-width: 100%; /* Ensure images scale down properly */
+            height: auto;
+            margin-right: -40px !important;
+        }
+
+        .modal-content p {
+            font-size: 16px; /* Adjust text size for better readability */
+            line-height: 1.6;
+        }
+
+        /* New rule for spacing between icons */
+        .modal-content .icon-container {
+            display: flex;
+            justify-content: space-between; /* Equal space between icons */
+            align-items: center; /* Center icons vertically if they are in a row */
+            gap: 20px; /* You can adjust this value to your preference for balanced spacing */
+        }
+
+            .modal-content .icon-container i {
+                font-size: 24px; /* Adjust icon size as needed */
+            }
+}
+
+/* For smaller devices, such as phones (max-width: 768px) */
+@media (min-width: 500px) and  (max-width: 760px) {
+    .modal-content {
+        width: 95%; /* Maximize modal width on small screens */
+        padding: 10px;
+    }
+
+        .modal-content img {
+            width: 100%; /* Make images responsive */
+            margin-right: 40px !important;
+        }
+
+        .modal-content p {
+            font-size: 14px; /* Smaller text size on mobile */
+        }
+}
+
+/* Mobile size (max-width: 600px) */
+@media (max-width: 600px) {
+    .mobilenav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
+    .navbar {
+        display: none;
+    }
+
+    .mobilenav i {
+        font-size: 30px; /* Icon size for mobile */
+    }
+
+    .navbar a {
+        font-size: 16px;
+        padding: 5px 10px;
+        white-space: nowrap; /* Prevent text from wrapping */
+    }
+
+        .navbar a:hover {
+            color: #0d8ab0;
+        }
+}
+
+/* For tablets like iPad Mini (601px to 820px) - Apply the mobile layout */
+@media (min-width: 601px) and (max-width: 820px) {
+    .mobilenav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
+    .navbar {
+        display: none;
+    }
+
+    /* Keep the navbar in the same mobile style */
+    .mobilenav i {
+        font-size: 30px; /* Icon size for tablets like iPad Mini */
+    }
+
+    .navbar a {
+        font-size: 16px;
+        padding: 5px 10px;
+        white-space: nowrap;
+    }
+
+        .navbar a:hover {
+            color: #0d8ab0;
+        }
+}
+
+/* For larger tablets (iPad Air and above) */
+@media (min-width: 821px) and (max-width: 1100px) {
+    .mobilenav {
+        display: none;
+    }
+
+    .navbar {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        padding: 10px;
+    }
+
+        .navbar a {
+            font-size: 18px;
+            padding: 8px 12px;
+        }
+
+            .navbar a:hover {
+                color: #0d8ab0;
+            }
+}
+/* For Mobile & Small Tablets (max-width: 600px) */
+@media (max-width: 600px) {
+    .mobilenav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 0 10px;
+    }
+
+    .navbar {
+        display: none; /* Navbar is hidden by default */
+    }
+
+    .mobilenav i {
+        font-size: 30px;
+        margin-right: 10px;
+    }
+
+    .navbar a {
+        font-size: 16px;
+        padding: 5px 10px;
+        white-space: nowrap;
+    }
+
+        .navbar a:hover {
+            color: #0d8ab0;
+        }
+}
+
+/* For Tablets (601px to 912px) */
+@media (min-width: 601px) and (max-width: 912px) {
+    .mobilenav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 0 10px;
+    }
+
+    .navbar {
+        display: none; /* Navbar is hidden by default */
+    }
+
+    .mobilenav i {
+        font-size: 30px; /* Icon size for devices between 601px and 912px */
+        margin-right: 10px;
+    }
+
+    .navbar a {
+        font-size: 16px;
+        padding: 5px 10px;
+        white-space: nowrap;
+    }
+
+        .navbar a:hover {
+            color: #0d8ab0;
+        }
+}
+
+/* For Devices like Asus Zenbook Fold (912px to 1368px) */
+@media (min-width: 912px) and (max-width: 1368px) {
+    .mobilenav {
+        display: flex; /* Keep the mobile navigation visible */
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 0 20px; /* Add padding to space out content */
+    }
+
+    .navbar {
+        display: flex; /* Ensure the navbar is visible for this resolution */
+        justify-content: space-evenly;
+        align-items: center;
+        padding: 10px;
+    }
+
+    .mobilenav i {
+        font-size: 30px; /* Icon size */
+        margin-right: 10px; /* Space between icon and navbar */
+    }
+
+    .navbar a {
+        font-size: 18px;
+        padding: 8px 12px;
+    }
+
+        .navbar a:hover {
+            color: #0d8ab0;
+        }
+}
+
+/* For Larger Tablets and Desktop (above 1368px) */
+@media (min-width: 1369px) {
+    .mobilenav {
+        display: none; /* Hide mobile nav */
+    }
+
+    .navbar {
+        display: flex; /* Show navbar for larger screens */
+        justify-content: space-evenly;
+        align-items: center;
+        padding: 15px;
+    }
+
+        .navbar a {
+            font-size: 20px;
+            padding: 12px 20px;
+        }
+
+            .navbar a:hover {
+                color: #0d8ab0;
+            }
+}
+
+/* header */
+
+.myheader {
+    display: flex;
+    margin: 20px 150px;
+}
+
+.headeritems {
+    width: 50%;
+}
+
+.headimg {
+    margin-right: 100px;
+}
+
+@media(max-width:600px) {
+
+    .myheader {
+        flex-direction: column;
+        margin: 20px 10px;
+    }
+
+    .headeritems {
+        width: 100%;
+    }
+
+    .headimg {
+        width: 100%;
+        margin-right: 0px;
+    }
+}
+
+
+/* books */
+
+
+
+/* Container for all book items */
+.bookscontainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Center items horizontally */
+    gap: 15px; /* Adds space between items */
+    margin: 20px auto; /* Centers the container */
+    padding: 10px;
+    max-width: 1200px; /* Optional max-width */
+}
+
+/* Individual book card */
+.bookitem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    box-sizing: border-box;
+}
+
+/* Book image styling */
+.headImg {
+    width: 100%; /* Occupies full width of .bookitem */
+    margin-right: 0px !important;
+    height: 400px !important;
+    border-radius: 8px;
+    height: auto; /* Maintains aspect ratio */
+    margin-bottom: 15px;
+    
+}
+
+.headImg1 {
+    width: 100%; /* Occupies full width of .bookitem */
+    height: 400px !important;
+    border-radius: 8px;
+    height: auto; /* Maintains aspect ratio */
+    margin-bottom: 15px;
+    
+}
+
+@media (max-width: 1100px) and (min-width: 600px) {
+    .headImg1 {
+        width: 100%;
+        margin-right: -138px !important;
+        max-height: 400px;
+        border-radius: 8px;
+        height: auto; /* Maintains aspect ratio */
+        margin-bottom: 15px;
+       
+    }
+}
+
+
+/* Book details section (title, author, price) */
+.bookdetails {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.bookitem h3 {
+    font-size: 1.2em;
+    margin: 5px 0;
+}
+
+.bookitem p {
+    font-size: 0.9em;
+    margin: 3px 0;
+}
+
+
+
+/* Button styling */
+.cardbtn {
+    background-color: #0d8ab0;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 15px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 0.9em;
+    box-shadow: rgba(131, 4, 153, 0.24) 0px 2px 6px;
+    margin-top: 10px;
+    width: 80%;
+}
+
+    .cardbtn:hover {
+        background-color: #0f4a86;
+    }
+
+/* تنظیمات ویژه برای تبلت‌ها */
+@media (max-width: 1100px) and (min-width: 600px) {
+    .bookscontainer {
+        flex-direction: column;
+        margin: 20px 10px;
+    }
+
+    .bookitem {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    .bookdetails {
+        flex-direction: row;
+        margin-bottom: 12px;
+    }
+
+    .imagebook {
+        width: 150px;
+        height: auto;
+    }
+
+    .bookdetails div {
+        margin-right: 15px;
+    }
+}
+
+/* تنظیمات ویژه برای سایز موبایل و تبلت */
+@media (max-width: 600px) {
+    .bookscontainer {
+        flex-direction: column;
+        align-items: center;
+        padding: 5px;
+    }
+
+    .bookitem {
+        width: 90%;
+        max-width: 320px;
+        margin: 10px auto;
+        box-shadow: 0px 0px 5px rgba(0,0,0,0.1);
+    }
+
+    .imagebook {
+        width: 100%;
+        max-width: 250px;
+        height: auto;
+        margin: 0 auto;
+        display: block;
+    }
+
+    .headImg {
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 15px;
+    }
+}
+
+/* footer */
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-section {
+    flex: 1;
+    margin: 0 10px;
+}
+
+    .footer-section h3 {
+        border-bottom: 2px solid #fff;
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+        font-size: 18px;
+    }
+
+    .footer-section p,
+    .footer-section ul {
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    .footer-section ul {
+        list-style: none;
+        padding: 0;
+    }
+
+        .footer-section ul li {
+            margin: 5px 0;
+        }
+
+            .footer-section ul li a {
+                color: #fff;
+                text-decoration: none;
+            }
+
+                .footer-section ul li a:hover {
+                    text-decoration: underline;
+                }
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    .social-links .social-icon {
+        margin: 0 10px;
+    }
+
+    .social-links img {
+        width: 24px;
+        height: 24px;
+    }
+
+@media (max-width: 900px) {
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer-section {
+        margin: 10px 0;
+    }
+
+    .social-links, .important-links, .about-us {
+        width: 100%;
+    }
+}
+
+/* checkout */
+.cart-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow-x: auto;
+}
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    text-align: right;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+.product-img {
+    max-width: 100px;
+    height: auto;
+}
+
+.qty-input {
+    width: 40px;
+}
+
+.subtotal {
+    font-weight: bold;
+}
+
+.ImgAndName {
+    display: flex;
+}
+
+    .ImgAndName p {
+        width: 160px;
+        margin-right: 10px;
+    }
+
+
+.total {
+    text-align: right;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.user-info {
+    margin-bottom: 20px;
+}
+
+    .user-info input {
+        width: 100%;
+        margin-bottom: 10px;
+        padding: 8px;
+        border-radius: 4px;
+        border: 1px solid #ddd;
+        box-sizing: border-box;
+    }
+
+    .user-info textarea {
+        width: 100%;
+        margin-bottom: 10px;
+        padding: 8px;
+        border-radius: 4px;
+        border: 1px solid #ddd;
+        box-sizing: border-box;
+    }
+
+.pay-btn {
+    background-color: #0f92db;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+    .pay-btn:hover {
+        background-color: #0f92db;
+    }
+
+
+.container {
+    width: 80%;
+    margin: 20px auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+fieldset {
+    border: none;
+    margin-bottom: 20px;
+}
+
+legend {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #0f92db;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+    button:hover {
+        background-color: #0f92db;
+    }
+
+
+/* book list */
+.search-container {
+    background-color: #fff;
+    max-width: 600px;
+    margin: 10px auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+}
+
+    .search-container input[type="text"] {
+        margin-bottom: 0;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        flex: 1;
+    }
+
+    .search-container button {
+        width: 20%;
+        padding: 10px 20px;
+        background-color: #0f92db;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+        .search-container button:hover {
+            background-color: #0056b3;
+        }
+
+
+
+.paggination {
+    display: inline-block;
+}
+
+    .paggination a {
+        color: black;
+        float: left;
+        padding: 8px 16px;
+        text-decoration: none;
+        transition: background-color .3s;
+        border: 1px solid #ddd;
+        margin: 0 4px;
+    }
+
+        .paggination a.active {
+            background-color: #0f92db;
+            color: white;
+        }
+
+        .paggination a:hover:not(.active) {
+            background-color: #ddd;
+        }
+
+
+/* register */
+.log-container {
+    max-width: 400px;
+    margin: 50px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+    .log-container h2 {
+        text-align: center;
+        margin: 20px;
+    }
+
+    .log-container .input-group {
+        margin-bottom: 20px;
+    }
+
+    .log-container label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .log-container input[type="text"], .log-container input[type="email"], .log-container input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid#ccc;
+        border-radius: 5px;
+    }
+
+    .log-container button {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        border-color: blueviolet;
+        color: #fff;
+        cursor: pointer;
+    }
+
+        .log-container button:hover {
+            background-color: blueviolet;
+        }
+
+    .log-container p {
+        margin-top: 15px;
+        text-align: center;
+    }
+
+    .log-container a {
+        color: #007bff;
+    }
+
+/* about us  */
+
+.aboutUs {
+    display: flex;
+    justify-content: center;
+    margin-left: 200px;
+    margin-top: 20px;
+    margin-right: 200px;
+}
+
+@media (max-width: 800px) {
+    .aboutUs {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+}
+
+
+/* book */
+
+.myHeader {
+    display: flex;
+    margin: 20px 150px;
+}
+
+.headerItems {
+    width: 50%;
+}
+
+.headImg {
+    margin-right: 100px;
+}
+
+@media (max-width : 600px) {
+    .myHeader {
+        flex-direction: column;
+        margin: 20px 10px;
+    }
+
+    .headerItems {
+        width: 100%;
+    }
+
+    .headImg {
+        width: 100%;
+        margin-right: 0;
+    }
+}
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+    .close:hover,
+    .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+.swiper-container {
+    width: 100%;
+    height: auto;
+    margin-top: 20px;
+    padding: 20px 0;
+    background-color: #f5f5f5; /* Subtle background color */
+    border-radius: 10px; /* Slightly rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+}
+
+.swiper-slide {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px; /* More pronounced rounding */
+    overflow: hidden;
+    text-align: center;
+    padding: 15px;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Smooth animation */
+}
+
+    .swiper-slide:hover {
+        transform: scale(1.05); /* Slight scaling on hover */
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
+    }
+
+    .swiper-slide img {
+        display: block;
+        margin: 0 auto 10px;
+        width: 120px;
+        height: 180px;
+        object-fit: cover;
+        border-radius: 5px; /* Rounded corners for images */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Light shadow for images */
+    }
+
+    .swiper-slide p {
+        margin: 0;
+        padding: 10px;
+        font-size: 16px;
+        font-weight: bold;
+        color: #333; /* Darker text color for better readability */
+    }
+.swiper-pagination {
+    position: absolute;
+    text-align: center;
+    transition: .3s opacity;
+    transform: translate3d(0, 0, 0);
+    z-index: 10;
+    left: 0;
+    right: 0;
+    bottom: 10px;
+    display: flex; /* Center the pagination dots */
+    justify-content: center; /* Center the pagination dots */
+    margin-top: 10px; /* Add some margin to separate from the slides */
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+    position: absolute;
+    top: 50%;
+    width: 27px;
+    height: 44px;
+    margin-top: -22px;
+    z-index: 10;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background for visibility */
+    color: white;
+    border-radius: 3px;
+    transition: background-color 0.3s;
+}
+
+    .swiper-button-next:hover,
+    .swiper-button-prev:hover {
+        background-color: black; /* Darker background on hover */
+    }
+
+.swiper-button-next {
+    right: 10px;
+    left: auto;
+    color:black;
+}
+
+.swiper-button-prev {
+    left: 10px;
+    right: auto;
+    color: black;
+}
+
+.star {
+    font-size: 24px;
+    cursor: pointer;
+    color: gray;
+}
+
+.star.selected {
+    color: gold;
+}
+
+body.dark-mode {
+    background-color: #333 !important;
+    color: white;
+}
+
+    body.dark-mode .main {
+        background-color: #444 !important;
+        color: black;
+    }
+
+    body.dark-mode .container {
+        background-color: #333; /* Default background */
+        padding: 20px;
+        border-radius: 8px;
+    }
+
+    body.dark-mode .log-container {
+        background-color: #333; /* Default background */
+        padding: 20px;
+        border-radius: 8px;
+    }
+
+/* Dark mode styles */
+body.dark-mode {
+    background-color: darkgray;
+    color: white;
+}
+
+    body.dark-mode .log-container {
+        background-color: #333; /* Dark background for the container */
+        color: white; /* Light text for dark mode */
+    }
+
+    /* Adjusting the form styling in dark mode */
+    body.dark-mode .register-form {
+        background-color: #333; /* Darker background for the form */
+        border-radius: 10px;
+        padding: 20px;
+    }
+
+    body.dark-mode .input-group {
+        margin-bottom: 15px;
+    }
+
+        body.dark-mode .input-group input {
+            background-color: #555; /* Darker input fields */
+            color: white;
+            border: 1px solid #777; /* Darker border for inputs */
+        }
+
+        body.dark-mode .input-group label {
+            color: #bbb; /* Lighter label color */
+        }
+
+    body.dark-mode button {
+        background-color: #666; /* Dark button background */
+        color: white;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        body.dark-mode button:hover {
+            background-color: #444; /* Darker button hover state */
+        }
+
+    body.dark-mode p {
+        color: #bbb; /* Lighter text for the paragraph */
+    }
+
+     body.dark-mode {
+        background-color: #333 !important;
+        color: white;
+    }
+    body.dark-mode .main {
+        background-color: #444 !important;
+        color: black;
+    }
+
+        body.dark-mode .container {
+            background-color: #333; /* Default background */
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+     body.dark-mode .log-container {
+        background-color: #333; /* Default background */
+        padding: 20px;
+        border-radius: 8px;
+    }
+
+    /* Dark mode styles */
+    body.dark-mode {
+        background-color: darkgray;
+        color: white;
+    }
+
+        body.dark-mode .log-container {
+            background-color: #333; /* Dark background for the container */
+            color: white; /* Light text for dark mode */
+        }
+
+        /* Adjusting the form styling in dark mode */
+        body.dark-mode .register-form {
+            background-color: #333; /* Darker background for the form */
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        body.dark-mode .input-group {
+            margin-bottom: 15px;
+        }
+
+            body.dark-mode .input-group input {
+                background-color: #555; /* Darker input fields */
+                color: white;
+                border: 1px solid #777; /* Darker border for inputs */
+            }
+
+            body.dark-mode .input-group label {
+                color: #bbb; /* Lighter label color */
+            }
+
+        body.dark-mode button {
+            background-color: #666; /* Dark button background */
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+            body.dark-mode button:hover {
+                background-color: #444; /* Darker button hover state */
+            }
+
+        body.dark-mode p {
+            color: #bbb; /* Lighter text for the paragraph */
+        }

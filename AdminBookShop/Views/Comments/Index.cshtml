@@ -1,0 +1,56 @@
+﻿@model IEnumerable<DataAccess.Models.Comment>
+
+@{
+    ViewData["Title"] = "Comments";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-r from-blue-300 via-pink-200 to-blue-400 min-h-screen">
+
+    <div class="container mx-auto p-6">
+
+        <!-- Page Title -->
+        <h1 class="text-4xl font-extrabold text-center text-black-50 mb-8">لیست نظرات</h1>
+
+        <!-- Comments Table -->
+        <div class="overflow-x-auto bg-white shadow-xl rounded-xl p-6">
+            <table class="min-w-full table-auto border-collapse">
+                <thead class="bg-gray-800 text-white">
+                    <tr>
+                        <th class="px-6 py-4 text-lg font-semibold text-center">کد</th>
+                        <th class="px-6 py-4 text-lg font-semibold text-center">متن</th>
+                        <th class="px-6 py-4 text-lg font-semibold text-center">نام کاربر</th>
+                        <th class="px-6 py-4 text-lg font-semibold text-center">تاریخ ایجاد</th>
+                        <th class="px-6 py-4 text-lg font-semibold text-center">عملیات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+
+                    {
+                        <tr class="border-b hover:bg-gray-100">
+                            <td class="px-4 py-2 text-center">@Html.DisplayFor(modelItem => item.Id)</td>
+                            <td class="px-4 py-2 text-center">@Html.DisplayFor(modelItem => item.Text)</td>
+                            <td class="px-4 py-2 text-center">@Html.DisplayFor(modelItem => item.UserName)</td>
+                            <td class="px-4 py-2 text-center">@Html.DisplayFor(modelItem => item.Created)</td>
+                            <td class="px-4 py-2 text-center">
+                                <a asp-action="Details" asp-route-id="@item.Id" class="text-green-500 hover:text-green-700 text-sm font-semibold">مشخصات</a> |
+                                <a asp-action="Delete" asp-route-id="@item.Id" class="text-red-500 hover:text-red-700 text-sm font-semibold">حذف</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+    <br /><br />
+</body>
+</html>

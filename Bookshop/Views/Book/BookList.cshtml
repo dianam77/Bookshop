@@ -1,0 +1,145 @@
+﻿@using Core.BookService
+@model PagedBookDto
+@{
+    ViewData["Title"] = "BookList";
+}
+
+<!-- Main Container -->
+<div class="container mx-auto p-6 bg-white rounded-lg transition-colors duration-300">
+    <!-- Title -->
+    <div class="title-container text-center mb-6">
+        <h1 class="text-3xl font-bold">تمام کتاب ها</h1>
+    </div>
+
+    <!-- Search Container -->
+    <div class="search-container flex justify-center gap-4 bg-gray-200 p-4 rounded-lg transition-colors duration-300">
+        <input type="text" id="search-input" class="p-2 border border-gray-300 rounded-lg" placeholder="جستجو...">
+        <button id="search-btn" class="p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-400 transition-colors duration-300">
+            <i class="fa fa-search"></i>
+        </button>
+    </div>
+
+    <!-- Books Container -->
+    <div class="bookscontainer grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-6">
+        @foreach (var item in Model.Items)
+
+        {
+            <div class="bookitem bg-gray-100 p-4 rounded-lg transition-colors duration-300">
+                <div class="bookdetails flex gap-4">
+                    <img class="headImg w-32 h-40 object-cover"src="/downloadFile/@item.ImgName" alt="@item.Title" />
+
+                    <div>
+                        <h3 class="text-xl font-semibold">@item.Title</h3>
+                        <p class="text-gray-700">@item.AuthorName</p>
+                        <p class="text-gray-700">@item.Price</p>
+                    </div>
+                </div>
+                <a class="cardbtn mt-4 inline-block py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-400 transition-colors duration-300" href="/Book/Index/1">مشاهده</a>
+            </div>
+        }
+    </div>
+
+    <!-- Pagination -->
+    <div style="display: flex; justify-content: center; margin-top: 15px; margin-bottom: 30px; direction: rtl;">
+        <div class="paggination" style="display: flex; flex-direction: row-reverse;">
+            @for (int i = 1; i <= Model.totalPage; i++)
+            {
+
+                if (i == Model.page)
+
+                {
+                    <a class="active" asp-action="BookList" asp-route-page="@i">@i</a>
+                }
+
+                else
+
+                {
+                    <a asp-action="BookList" asp-route-page="@i">@i</a>
+                }
+            }
+        </div>
+    </div>
+
+</div>
+
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const darkModeToggle = document.getElementById('darkModeToggle');
+
+        // Apply theme based on user preference stored in localStorage
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme === 'dark') {
+            enableDarkMode();
+        } else {
+            enableLightMode();
+        }
+
+        // Toggle theme on button click
+        darkModeToggle.addEventListener('click', () => {
+            if (document.body.classList.toggle('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+                enableDarkMode();
+            } else {
+                localStorage.setItem('theme', 'light');
+                enableLightMode();
+            }
+        });
+
+        // Initial check for dark mode toggle button
+        updateDarkModeToggleButton();
+    });
+
+    // Function to enable dark mode
+    function enableDarkMode() {
+        document.body.classList.add('dark-mode');
+        document.body.style.backgroundColor = '#333'; // Dark background for body
+        document.body.style.color = '#fff'; // White text for dark mode
+
+        document.querySelectorAll('header, h1, h2, p').forEach(element => {
+            element.style.backgroundColor = '#444'; // Dark gray background
+            element.style.color = '#fff'; // White text
+        });
+
+        document.querySelectorAll('.bookscontainer, .bookitem, .container').forEach(element => {
+            element.style.backgroundColor = '#444'; // Darker gray background
+            element.style.color = '#fff'; // White text
+        });
+
+        updateDarkModeToggleButton();
+    }
+
+    // Function to enable light mode
+    function enableLightMode() {
+        document.body.classList.remove('dark-mode');
+        document.body.style.backgroundColor = '#f5f5f5'; // Light background for body
+        document.body.style.color = '#333'; // Dark gray text for light mode
+
+        document.querySelectorAll('header, h1, h2, p').forEach(element => {
+            element.style.backgroundColor = ''; // Reset background color
+            element.style.color = ''; // Reset text color
+        });
+
+        document.querySelectorAll('.bookscontainer, .bookitem, .container').forEach(element => {
+            element.style.backgroundColor = ''; // Reset background color
+            element.style.color = ''; // Reset text color
+        });
+
+        updateDarkModeToggleButton();
+    }
+
+    // Function to update the dark mode toggle button styling
+    function updateDarkModeToggleButton() {
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        if (document.body.classList.contains('dark-mode')) {
+            darkModeToggle.innerHTML = '<i class="fa fa-sun-o"></i>';  // Light mode icon
+            darkModeToggle.style.backgroundColor = '#333';  // Button background dark in dark mode
+            darkModeToggle.style.color = '#fff';  // Icon color white in dark mode
+        } else {
+            darkModeToggle.innerHTML = '<i class="fa fa-moon-o"></i>';  // Dark mode icon
+            darkModeToggle.style.backgroundColor = 'white';  // Button background light in light mode
+            darkModeToggle.style.color = 'black';  // Icon color black in light mode
+        }
+    }
+</script>

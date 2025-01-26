@@ -1,0 +1,130 @@
+﻿@using DataAccess.Models
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> _SignInManager
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - AdminBookShop</title>
+    <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
+    <!-- Load jSuites styles and scripts -->
+    <link rel="stylesheet" href="https://jsuites.net/v5/jsuites.css" type="text/css" />
+    <script src="https://jsuites.net/v5/jsuites.js"></script>
+    <script src="https://jsuites.net/v5/jsuites.webcomponents.js"></script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  
+</head>
+<body>
+    <div dir="rtl" style="font-family: IranSans;">
+        <!-- navbar -->
+        <nav class="nav">
+            <div class="mobilenav hidden">
+                <i id="mynavbtn" class="fa fa-bars"></i>
+            </div>
+
+            <div id="desktopnav" class="navbar">
+                <a asp-controller="Home" asp-action="index" class="atext">خانه</a>
+                <a asp-controller="Book" asp-action="BookList" class="atext">محصولات</a>
+                <a asp-controller="Home" asp-action="aboutUs" class="atext">درباره با ما</a>
+
+                @if (_SignInManager.IsSignedIn(User))
+
+
+
+                {
+                    <a asp-controller="Profile" asp-action="index" class="atext">پروفایل</a>
+                    <a asp-controller="Account" asp-action="Logout" class="atext">خروج</a>
+                }
+
+
+
+                else
+
+
+
+                {
+                    <a asp-controller="Account" asp-action="Login" class="atext">ثبت نام | ورود</a>
+                }
+                <a asp-controller="Order" asp-action="Basket" class="atext"> سبد خرید</a>
+                <button b-yzt36hb8zc="" id="darkModeToggle" class="dark-mode-toggle" style="background-color: white; color: black;">
+                <i class="fa fa-moon-o" aria-hidden="true"></i>
+                </button>
+                <img src="~/assets/img/logo.svg" style="width:350px; height:120px" alt="logo"></img>
+            </div>
+        </nav>
+        <br /><br /><br />
+        <div class="container">
+            <main role="main" class="pb-3">
+                <!-- The Modal -->
+                <div id="myModal" class="modal">
+                    <!-- Modal content -->
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <div id="modal-body">
+                        </div>
+                    </div>
+                </div>
+                @RenderBody()
+            </main>
+        </div>
+
+        <!-- footer -->
+        <footer>
+            <div class="footer-container">
+                <!-- About Us Section -->
+                <div class="footer-section about-us">
+                    <h3>درباره ما</h3>
+                    <p>ما یک شرکت متعهد برای ارائه خدمات به مشتریان خود هستیم!</p>
+                </div>
+
+                <!-- Important Links Section -->
+                <div class="footer-section important-links">
+                    <h3>لینک‌های مهم</h3>
+                    <ul>
+                        <li><a asp-controller="Home" asp-action="index" class="atext">خانه</a></li>
+                        <li><a asp-controller="Book" asp-action="BookList" class="atext">محصولات</a></li>
+                        <li><a asp-controller="Home" asp-action="aboutUs" class="atext">درباره با ما</a></li>
+                    </ul>
+                </div>
+
+                <!-- Social Network Links Section -->
+                <div class="footer-section">
+                    <h3>ما را دنبال کنید</h3><br>
+                    <div class="social-links">
+                        <a href="#" class="social-icon"><img src="~/assets/img/6704280_insta_instagram_share_social media_icon.svg" alt="Instagram"></a>
+                        <a href="#" class="social-icon"><img src="~/assets/img/334641_developer_github_account_cat_client_icon.svg" alt="github"></a>
+                        <a href="#" class="social-icon"><img src="~/assets/img/2749409_cloud_message_messenger_network_plane_icon.svg" alt="telegram"></a>
+                        <a href="#" class="social-icon"><img src="~/assets/img/6704276_linkedin_network_share_social media_icon.svg" alt="LinkedIn"></a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="~/js/scripts.js" asp-append-version="true"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            const myNavBtn = document.getElementById('mynavbtn');
+            const desktopNav = document.getElementById('desktopnav');
+
+            darkModeToggle.addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+                darkModeToggle.innerHTML = document.body.classList.contains('dark-mode')
+                    ? '<i class="fa fa-sun-o"></i>'
+                    : '<i class="fa fa-moon-o"></i>';
+            });
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>
+

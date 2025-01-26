@@ -1,0 +1,79 @@
+﻿@model DataAccess.Models.Book
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-r from-blue-300 via-pink-200 to-blue-400 min-h-screen">
+
+    <div class="container mx-auto p-6">
+        <h1 class="text-4xl font-extrabold text-center text-black-50 mb-8">مشخصات کتاب</h1>
+
+        <!-- Book Details -->
+        <div class="bg-white shadow-xl rounded-xl p-6">
+            <div class="mb-4">
+                <h4 class="text-2xl font-semibold text-indigo-600">  مشخصات کتاب</h4>
+                <hr class="border-t-2 border-indigo-500 mt-2">
+            </div>
+            <div class="space-y-6">
+                <!-- Title -->
+                <div class="flex">
+                    <dt class="w-1/4 text-lg font-semibold text-gray-700">عنوان:</dt>
+                    <dd class="w-3/4 text-lg text-black">@Html.DisplayFor(model => model.Title)</dd>
+                </div>
+
+                <!-- Description -->
+                <div class="flex">
+                    <dt class="w-1/4 text-lg font-semibold text-gray-700">توضیحات:</dt>
+                    <dd class="w-3/4 text-lg text-black">@Html.DisplayFor(model => model.Description)</dd>
+                </div>
+
+                <!-- Price -->
+                <div class="flex">
+                    <dt class="w-1/4 text-lg font-semibold text-gray-700">قيمت:</dt>
+                    <dd class="w-3/4 text-lg text-black">@Html.DisplayFor(model => model.Price)</dd>
+                </div>
+
+                <!-- Image -->
+                <div class="flex">
+                    <dt class="w-1/4 text-lg font-semibold text-gray-700"> تصویر:</dt>
+                    <dd class="w-3/4">
+                        @if (!string.IsNullOrEmpty(Model.Img))
+
+                        {
+                            <img src="@Url.Content(Model.Img)" width="200px" alt="Book Image" class="rounded-md shadow-sm" />
+                        }
+
+                        else
+
+                        {
+                            <span class="text-pink-500">No Image Available</span>
+                        }
+                    </dd>
+                </div>
+
+                <!-- Author -->
+                <div class="flex">
+                    <dt class="w-1/4 text-lg font-semibold text-gray-700">نویسنده:</dt>
+                    <dd class="w-3/4 text-lg text-black">@Html.DisplayFor(model => model.Author.Name)</dd>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Links -->
+        <div class="mt-8 text-center space-x-4">
+            <a asp-action="Edit" asp-route-id="@Model?.Id" class="px-6 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-gradient-to-l transition duration-300 ease-in-out transform hover:scale-105">ادیت</a>
+            <a asp-action="Index" class="px-6 py-2 bg-gradient-to-r from-gray-500 to-gray-600 text-white font-semibold rounded-lg shadow-md hover:bg-gradient-to-l transition duration-300 ease-in-out transform hover:scale-105">بازگشت به لیست</a>
+        </div>
+    </div>
+    <br /><br />
+</body>
+</html>

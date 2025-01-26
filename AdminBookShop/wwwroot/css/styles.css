@@ -1,0 +1,183 @@
+@font-face {
+    font-family: IranSans;
+    src: url("../assets/font/iransans/Sans a4fran3.ttf");
+}
+
+
+/* Apply IranSans globally */
+body, html {
+    font-family: IranSans; /* Fallback to sans-serif */
+    direction: rtl; /* Set text direction to right-to-left */
+    text-align: right; /* Align text to the right by default */
+}
+
+/* Apply IranSans to the navbar */
+.navbar a {
+    font-family: IranSans;
+    font-weight: normal; /* Adjust as needed */
+}
+
+/* Apply IranSans to other sections of your page */
+.section-title {
+    font-family: IranSans;
+}
+
+h1, h2, h3 {
+    font-family: IranSans;
+}
+
+button {
+    font-family: IranSans;
+}
+
+
+/* General Styles */
+.hidden {
+    display: none; /* Hide the element */
+}
+
+a {
+    text-decoration: none; /* Remove underline from links */
+}
+
+/* Apply transition effects to the body */
+body {
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Navbar container styles */
+.nav {
+    background: transparent; /* No background color */
+    padding: 20px 0; /* Adjust top/bottom padding for navbar height */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%; /* Ensure full width */
+    z-index: 1000;
+    display: flex;
+    justify-content: center; /* Center the navbar content */
+    align-items: center; /* Vertically center the navbar content */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for better visibility */
+}
+
+/* Navbar Links */
+.navbar {
+    display: flex;
+    justify-content: space-evenly; /* Evenly distribute items */
+    align-items: center; /* Vertically center the items */
+    width: 80%; /* Adjust width of navbar to create some spacing around */
+}
+
+    .navbar a {
+        color: black; /* Black text color for links */
+        padding: 10px 15px; /* Adjust padding for spacing */
+        font-size: 25px;
+        text-decoration: none; /* Remove underline */
+        cursor: pointer;
+        margin: 0; /* No extra margin between links */
+        font-weight: 900; /* Very bold font weight (extra bold) */
+    }
+
+        /* Hover effect for navbar links */
+        .navbar a:hover {
+            color: #0d8ab0; /* Optional: change color on hover */
+        }
+
+/* Mobile Navigation */
+.mobilenav {
+    display: flex;
+    justify-content: center; /* Center the hamburger icon */
+    align-items: center;
+    width: 100%; /* Make sure it takes full width */
+}
+
+    .mobilenav i {
+        font-size: 30px;
+        color: black; /* Black icon color */
+        cursor: pointer;
+        margin-right: 10px;
+    }
+
+/* Styles for mobile and desktop nav links */
+#desktopnav a {
+    color: black; /* Black text color for links */
+    padding: 10px 15px; /* Adjust padding for spacing */
+    font-size: 25px;
+    text-decoration: none; /* Remove underline */
+    font-weight: 900; /* Very bold font weight */
+    cursor: pointer;
+}
+
+    /* Hover effect for navbar links */
+    #desktopnav a:hover {
+        color: #0d8ab0; /* Change color on hover */
+    }
+
+#desktopnav {
+    display: none; /* Hidden by default for mobile */
+    flex-direction: column; /* Stack items vertically for mobile */
+    background-color: rgba(255, 255, 255, 0.9); /* White background with 90% opacity */
+    position: absolute;
+    top: 60px; /* Below the navbar button */
+    left: 0;
+    right: 0;
+    width: 100%; /* Full width for mobile */
+    z-index: 1000;
+    text-align: center; /* Center text in mobile dropdown */
+    padding: 20px 0; /* Some padding for spacing */
+}
+
+    /* Show the mobile menu when 'active' class is added */
+    #desktopnav.active {
+        display: flex; /* Show menu */
+    }
+
+/* Responsive Media Queries */
+
+/* For Mobile & Small Tablets (max-width: 1024px) */
+@media (max-width: 1024px) {
+    .mobilenav {
+        display: flex;
+        justify-content: center; /* Center hamburger icon */
+        align-items: center;
+        width: 100%;
+        padding: 0 10px;
+    }
+
+    #desktopnav {
+        flex-direction: column;
+        text-align: center; /* Center text in mobile view */
+    }
+
+    .navbar {
+        display: none; /* Hide navbar items on tablets and small desktops */
+    }
+
+    /* Ensure the hamburger icon and menu are visible */
+    .mobilenav i {
+        font-size: 30px;
+        color: black; /* Black icon color */
+        cursor: pointer;
+    }
+}
+
+/* For Larger Screens */
+@media (min-width: 1025px) {
+    .mobilenav {
+        display: none; /* Hide mobile menu button */
+    }
+
+    #desktopnav {
+        display: flex; /* Show navbar links */
+        flex-direction: row; /* Align items horizontally */
+        background-color: rgba(255, 255, 255, 0.5); /* White background with 50% opacity */
+        position: static;
+        justify-content: space-evenly; /* Evenly space items */
+        text-align: center; /* Ensure text is centered */
+    }
+
+    .navbar {
+        display: flex; /* Show navbar items on larger screens */
+    }
+}

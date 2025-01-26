@@ -1,0 +1,152 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<header class="myheader">
+    <div class="headeritems">
+        <br /><br />
+        <h1>به فروشگاه ما خوش آمدید!</h1>
+        <p>
+            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است،
+            چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد
+            نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته
+            حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان
+            رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید
+            داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل
+            حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار
+            گیرد.
+        </p>
+    </div>
+    <div class="headerItems">
+        <img class="headImg" src="~/assets/img/_8e1959ca-6500-4974-b71c-e2405e9198c0.jpg" width="500px" height="450px" alt="diaycode header">
+    </div>
+</header>
+
+<!--new books-->
+<h2 style="text-align : center">
+    کتاب های جدید
+    <i class="fa fa-book text-4xl animate-rotate animate-scale animate-bounce animate-pulse"></i>
+
+</h2>
+@await Component.InvokeAsync("HomeBook", new { ShowHome = true, IsNew = true })
+
+<!-- Books Section -->
+<h2 style="text-align : center">
+    لیست کتاب ها
+    <i class="fa fa-book text-4xl animate-rotate animate-scale animate-bounce animate-pulse"></i>
+
+</h2>
+
+@await Component.InvokeAsync("HomeBook", new { ShowHome = true, IsNew = false })
+
+
+
+<script>
+    // Modal functionality
+    var modal = document.getElementById("myModal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+
+    async function OpenModal(id) {
+        console.log(id);
+        modal.style.display = "block";
+        var body = document.getElementById("modal-body")
+        try {
+            var response = await fetch("/Book/GetBook/" + id);
+            if (response.ok) {
+                var res = await response.text();
+                body.innerHTML = res;
+            }
+        } catch (error) {
+            console.error('Error fetching book details:', error);
+        }
+    }
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    // Dark mode toggle functionality
+    document.addEventListener('DOMContentLoaded', () => {
+        const darkModeToggle = document.getElementById('darkModeToggle');
+
+        const applyTheme = (theme) => {
+            if (theme === 'dark') {
+                document.body.classList.add('dark-mode');
+                document.body.style.backgroundColor = '#333'; // Dark background
+                document.body.style.color = '#ffffff'; // White text
+
+                // Apply dark mode to specific elements
+                document.querySelectorAll('header, h1, h2, p').forEach(element => {
+                    element.style.backgroundColor = '#444'; // Dark gray background
+                    element.style.color = '#ffffff'; // White text
+                });
+
+                // Apply dark mode to container elements
+                document.querySelectorAll('.bookscontainer, .bookitem, .container').forEach(element => {
+                    element.style.backgroundColor = '#444'; // Dark gray background
+                    element.style.color = '#ffffff'; // White text
+                });
+
+                // Style the toggle button for dark mode
+                darkModeToggle.innerHTML = '<i class="fa fa-sun-o"></i>'; // Sun icon
+                darkModeToggle.style.backgroundColor = '#444'; // Dark gray button
+                darkModeToggle.style.color = '#ffffff'; // White text for button
+            } else {
+                document.body.classList.remove('dark-mode');
+                document.body.style.backgroundColor = '#f5f5f5'; // Light background
+                document.body.style.color = '#333'; // Dark text
+
+                // Revert elements to default styles for light mode
+                document.querySelectorAll('header, h1, h2, p').forEach(element => {
+                    element.style.backgroundColor = ''; // Default background
+                    element.style.color = ''; // Default text
+                });
+
+                document.querySelectorAll('.bookscontainer, .bookitem, .container').forEach(element => {
+                    element.style.backgroundColor = ''; // Default background
+                    element.style.color = ''; // Default text
+                });
+
+                // Style the toggle button for light mode
+                darkModeToggle.innerHTML = '<i class="fa fa-moon-o"></i>'; // Moon icon
+                darkModeToggle.style.backgroundColor = 'white'; // Light button
+                darkModeToggle.style.color = 'black'; // Black text for button
+            }
+        };
+
+        // Load the saved theme or set default to light mode
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            applyTheme(savedTheme);
+        } else {
+            applyTheme('light'); // Default to light mode
+            localStorage.setItem('theme', 'light'); // Save default theme
+        }
+
+        // Add event listener to toggle theme
+        darkModeToggle.addEventListener('click', () => {
+            const newTheme = document.body.classList.contains('dark-mode') ? 'light' : 'dark';
+            applyTheme(newTheme);
+
+            // Save the new theme to localStorage
+            localStorage.setItem('theme', newTheme);
+        });
+    });
+</script>
+
+
+
+

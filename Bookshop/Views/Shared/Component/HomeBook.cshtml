@@ -1,0 +1,30 @@
+﻿<!-- books -->
+@using DataAccess.Models
+@model List<Book>
+<div class="bookscontainer">
+        @foreach(var item in Model)
+    {
+        <div class="bookitem">
+            <div class="bookdetails">
+                <img class="headImg" style="width:280px; height:600px;" src="/downloadFile/@item.Img" alt="@item.Title" />
+
+                <div>
+                    <h3>
+                        @item.Title
+                    </h3>
+                    <div style=" display:flex;justify-content:space-between; align-items:center">
+                        <p>
+                            @item.Author.Name
+                        </p>
+                        <button style="cursor:pointer;background-color:#f9f9f9;color:black;" onclick="OpenModal(@item.Id)" id="myBtn"><i class="fa fa-search"></i></button>
+                    </div>
+                    <p>@item.Price تومان</p>
+
+                </div>
+
+            </div>
+            <a asp-action="Index" asp-controller="Book" asp-route-id="@item.Id" class="cardbtn"> مشاهده</a>
+
+        </div>
+    }
+</div>

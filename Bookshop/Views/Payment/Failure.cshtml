@@ -1,0 +1,9 @@
+﻿@{
+    ViewBag.Title = "Payment Failed";
+}
+
+<h2>پرداخت ناموفق بود</h2>
+<p>@TempData["PaymentError"]</p>
+
+<a href="@Url.Action("Index", "Payment")">تلاش مجدد  |</a>
+<a href="@Url.Action("Index", "Home")">بازگشت به صفحه اصلی</a>
