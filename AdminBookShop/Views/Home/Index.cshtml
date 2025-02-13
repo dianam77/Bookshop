@@ -1,0 +1,89 @@
+﻿@using Core.Extenstion
+@using Core.OrderService.Model
+@model List<AdmiOrderDto>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet"> <!-- AOS Library for animations -->
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+</head>
+
+<body class="bg-gradient-to-r from-blue-300 via-pink-200 to-blue-400 min-h-screen">
+
+    <div class="container mx-auto p-6">
+        <!-- Title with Slide-In Animation -->
+        <h1 class="text-4xl font-extrabold text-center text-black mb-8" data-aos="fade-up">لیست سفارشات</h1>
+
+        <!-- Add Book Icon with Animation -->
+        <div class="flex justify-center mt-12">
+            <i class="fas fa-book text-6xl text-white-500" data-aos="zoom-in"></i> 
+        </div>
+
+        <!-- Orders Table without animation -->
+        <div class="overflow-x-auto bg-white shadow-xl rounded-xl p-6 mt-8">
+            <table class="table-auto w-full text-gray-800">
+                <thead>
+                    <tr class="bg-gray-700 text-white">
+                        <th class="px-6 py-4 text-lg font-semibold">کاربر</th>
+                        <th class="px-6 py-4 text-lg font-semibold">تعداد</th>
+                        <th class="px-6 py-4 text-lg font-semibold">تاریخ</th>
+                        <th class="px-6 py-4 text-lg font-semibold">وضعیت</th>
+                        <th class="px-6 py-4 text-lg font-semibold">محصولات</th>
+                        <th class="px-6 py-4 text-lg font-semibold">عملیات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+
+                    {
+                        <tr class="border-b hover:bg-gray-100">
+                            <td class="px-4 py-2">@item.UserName</td>
+                            <td class="px-4 py-2">@item.Items.Count</td>
+                            <td class="px-4 py-2">@item.Payed.ToPersianDateString()</td>
+                            <td class="px-4 py-2">
+                                @if (item.Status == DataAccess.Enums.Status.Accepted)
+
+                                {
+                                    <span class="px-3 py-1 text-sm text-white bg-green-500 rounded-full">ارسال شده</span>
+                                }
+
+                                else if (item.Status == DataAccess.Enums.Status.Rejected)
+
+                                {
+                                    <span class="px-3 py-1 text-sm text-white bg-red-500 rounded-full">لغو شده</span>
+                                }
+
+                                else if (item.Status == DataAccess.Enums.Status.Final)
+
+                                {
+                                    <span class="px-3 py-1 text-sm text-white bg-yellow-500 rounded-full">در انتظار تایید</span>
+                                }
+                            </td>
+                            <td class="px-4 py-2">@string.Join(",", item.Items)</td>
+                            <td class="px-4 py-2 text-center">
+                                <a href="@Url.Action("Edit", new { id = item.Id })" class="text-blue-500 hover:text-blue-700">ویرایش</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <!-- Add Font Awesome Library for Book Icon -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</body>
+
+</html>

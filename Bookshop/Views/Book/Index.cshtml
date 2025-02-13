@@ -1,0 +1,317 @@
+﻿ @model Bookshop.Models.BookWithSameAuthorViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="myHeader">
+    <div class="headerItems">
+        <img class="headImg1" style="width:280px; height:600px;" src="/downloadFile/@Model.CurrentBook.Img" alt="@Model.CurrentBook.Title" />
+    </div>
+
+    <input type="hidden" id="bookId" value="@Model.CurrentBook.Id" />
+    <div class="headerItems">
+        <h1>@Model.CurrentBook.Title</h1>
+        <p>@Model.CurrentBook.Description</p>
+        <p>@Model.CurrentBook.Author?.Name</p>
+
+        <div class="bookPrice">
+            <input id="bookIntPrice" type="hidden" value="15000">
+            <strong id="bookShowPrice">@Model.CurrentBook.Price تومان</strong>
+            <div>
+                تعداد: <input id="countInput" type="number" min="1" value="1">
+            </div>
+        </div>
+
+        @if (Model.CurrentBook.IsAvail)
+
+        {
+            <a onclick="AddToBasket()" class="cardbtn" style="margin-top: 15px;">افزودن به سبد</a>
+        }
+
+        else
+
+        {
+            <a asp-controller="Book" asp-action="BookList" class="cardbtn" style="margin-top: 15px;">اتمام موجودی</a>
+        }
+    </div>
+</div>
+
+
+<h3>کتاب‌های دیگر از نویسنده:</h3>
+<div>
+    <div>
+        @if (Model.BooksBySameAuthor != null && Model.BooksBySameAuthor.Any())
+
+        {
+            @foreach (var book in Model.BooksBySameAuthor)
+
+            {
+                <div class="swiper-slide">
+                    <a href="@Url.Action("Index", "Book", new { id = book.Id })" class="book-link">
+                        <img src="/downloadFile/@book.Img" alt="@book.Title" class="book-image" />
+                        <div class="book-info">
+                            <p class="book-title">@book.Title</p>
+                        </div>
+                    </a>
+                </div>
+            }
+        }
+
+        else
+
+        {
+            <p>کتابی از نویسنده پیدا نشد.</p>
+        }
+    </div>
+
+</div>
+<h3>امتیازدهی:</h3>
+
+@if (User?.Identity?.IsAuthenticated ?? false)
+{
+    <!-- Display the rating component -->
+    <jsuites-rating id="user-rating" value="@Model.UserRating" tooltip="Ugly, Bad, Average, Good, Outstanding" data-rating-value="@Model.UserRating"></jsuites-rating>
+
+    <p>میانگین امتیاز: <span id="average-rating">@Model.CurrentBook.AverageRating</span> (تعداد امتیازات: <span id="rating-count">@Model.CurrentBook.RatingCount</span>)</p>
+}
+else
+{
+    <p>برای ثبت امتیاز، لطفاً <a asp-controller="Account" asp-action="Login">وارد سیستم</a> شوید.</p>
+}
+
+
+<h3>نظرات:</h3>
+<div>
+    @if (Model.Comments != null && Model.Comments.Any())
+
+    {
+        @foreach (var comment in Model.Comments.Where(c => !c.ReplyId.HasValue))
+
+        {
+            <div style="margin-bottom: 20px;">
+                <p>@comment.Text</p>
+                <small>نوشته شده توسط: @comment.UserName | تاریخ: @comment.Created</small>
+
+                @if (comment.UserId == Model.CurrentUserId)
+
+                {
+                    <div>
+                        <form asp-action="EditComment" method="post" style="display: inline;">
+                            <input type="hidden" name="id" value="@comment.Id" />
+                            <input type="hidden" name="bookId" value="@Model.CurrentBook.Id" />
+                            <textarea name="newText" style="width: 100%; height: 60px; resize: none; margin-bottom: 5px;">@comment.Text</textarea>
+                            <button type="submit" style="margin-bottom: 5px; padding: 2px 5px;" class="btn btn-primary btn-sm">ویرایش</button>
+                        </form>
+                        <form asp-action="DeleteComment" method="post" style="display: inline;">
+                            <input type="hidden" name="id" value="@comment.Id" />
+                            <input type="hidden" name="bookId" value="@Model.CurrentBook.Id" />
+                            <button type="submit" style="margin-bottom: 5px; padding: 2px 5px;" class="btn btn-danger btn-sm">حذف</button>
+                        </form>
+
+                    </div>
+                }
+
+                @foreach (var reply in Model.Comments.Where(r => r.ReplyId == comment.Id && r.UserName == "Admin"))
+
+                {
+                    <div style="margin-left: 50px; border-left: 2px solid #ddd; padding-left: 10px; margin-top: 10px;">
+                        <p><strong style="color: red;">Admin:</strong> @reply.Text</p>
+                        <small>نوشته شده توسط: @reply.UserName | تاریخ: @reply.Created</small>
+                    </div>
+                }
+            </div>
+        }
+    }
+
+    else
+
+    {
+        <p>هنوز نظری ثبت نشده است.</p>
+    }
+</div>
+
+<h4>افزودن نظر جدید:</h4>
+<form asp-action="AddComment" method="post">
+    <input type="hidden" name="BookId" value="@Model.CurrentBook.Id" />
+    <textarea name="Text" style="width: 100%; height: 120px; resize: none;" required></textarea>
+    <button type="submit" class="btn btn-success">ارسال نظر</button>
+</form>
+
+
+
+@section Scripts {
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="https://jsuites.net/v5/jsuites.js"></script>
+    <script src="https://jsuites.net/v5/jsuites.webcomponents.js"></script>
+    <link rel="stylesheet" href="https://jsuites.net/v5/jsuites.css" />
+
+    <script>
+        // Dark Mode Toggle
+        document.addEventListener('DOMContentLoaded', () => {
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            if (darkModeToggle) {
+                darkModeToggle.addEventListener('click', () => {
+                    document.body.classList.toggle('dark');
+                    localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+                    updateDarkModeToggleButton(); // Update button appearance
+                    applyDarkModeStyles(); // Apply dark mode styles to navbar and links
+                });
+            }
+
+            // Load theme from localStorage
+            if (localStorage.getItem('theme') === 'dark') {
+                document.body.classList.add('dark');
+                updateDarkModeToggleButton(); // Update button appearance
+                applyDarkModeStyles(); // Apply dark mode styles to navbar and links
+            }
+        });
+
+        // Updates the dark mode toggle button's appearance
+        function updateDarkModeToggleButton() {
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            if (document.body.classList.contains('dark')) {
+                darkModeToggle.innerHTML = '<i class="fa fa-sun-o"></i>'; // Sun icon in dark mode
+                darkModeToggle.style.backgroundColor = '#444'; // Dark background
+                darkModeToggle.style.color = '#fff'; // White color for icon
+                darkModeToggle.style.borderRadius = '50%'; // Circular shape
+                darkModeToggle.style.padding = '10px';
+            } else {
+                darkModeToggle.innerHTML = '<i class="fa fa-moon-o"></i>'; // Moon icon in light mode
+                darkModeToggle.style.backgroundColor = '#fff'; // Light background
+                darkModeToggle.style.color = '#000'; // Black color for icon
+                darkModeToggle.style.borderRadius = '0'; // Rectangular shape
+                darkModeToggle.style.padding = '5px';
+            }
+        }
+
+        // Apply dark mode styles to navbar and navigation links
+        function applyDarkModeStyles() {
+            const navbar = document.querySelector('.navbar');
+            const nav = document.querySelector('.nav');
+            const navLinks = document.querySelectorAll('.navbar a');
+
+            if (navbar) {
+                navbar.style.backgroundColor = '#333'; // Dark gray navbar
+                navbar.style.color = '#fff'; // White text color
+            }
+
+            if (nav) {
+                nav.style.backgroundColor = '#333'; // Dark gray navbar
+                nav.style.color = '#fff'; // White text color
+            }
+            navLinks.forEach(link => {
+                link.style.color = '#ccc'; // Light color for navbar links
+                link.addEventListener('mouseover', () => {
+                    link.style.color = '#fff'; // Change color on hover
+                });
+                link.addEventListener('mouseout', () => {
+                    link.style.color = '#ccc'; // Revert on mouse out
+                });
+            });
+        }
+
+            document.addEventListener('DOMContentLoaded', function () {
+            const ratingComponent = document.getElementById('user-rating');
+            const bookId = document.getElementById('bookId').value;
+            const userId = '@Model.CurrentUserId'; // شناسه کاربر وارد شده
+
+            // زمانی که کاربر روی امتیاز کلیک می‌کند
+            ratingComponent.addEventListener('click', function () {
+                const rating = ratingComponent.getAttribute('value');
+
+                // اگر کاربر وارد نشده باشد، پیغام خطا نمایش داده شود
+                if (!userId) {
+                    Swal.fire({
+                        title: "خطا",
+                        text: "برای ثبت یا ویرایش امتیاز، لطفاً وارد سیستم شوید.",
+                        icon: "warning"
+                    });
+                    return;
+                }
+
+                // ارسال امتیاز به سرور برای ذخیره یا ویرایش
+                fetch('/Book/RateBook', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ bookId: bookId, rating: rating, userId: userId })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // به‌روزرسانی میانگین امتیاز و تعداد امتیازدهی‌ها
+                        document.getElementById('average-rating').innerText = data.averageRating;
+                        document.getElementById('rating-count').innerText = data.ratingCount;
+                        Swal.fire({
+                            title: "موفقیت",
+                            text: "امتیاز شما با موفقیت ثبت شد.",
+                            icon: "success"
+                        });
+                    } else {
+                        Swal.fire({
+                            title: "خطا",
+                            text: data.message || "خطای ناشناخته. لطفاً دوباره تلاش کنید.",
+                            icon: "error"
+                        });
+                    }
+                })
+                .catch(error => {
+                    Swal.fire({
+                        title: "خطا",
+                        text: "مشکلی در ارسال امتیاز وجود دارد. دوباره امتحان کنید.",
+                        icon: "error"
+                    });
+                    console.error('Error:', error);
+                });
+            });
+
+            const navBtn = document.getElementById('navbtn');
+            if (navBtn) {
+                navBtn.addEventListener('click', function () {
+                    console.log('🟢 دکمه‌ی ناوبری کلیک شد!');
+                    console.log('🔹 مقدار دکمه:', navBtn.innerText);
+                });
+            } else {
+                console.log('❌ دکمه‌ی ناوبری پیدا نشد!');
+            }
+        });
+
+
+
+        // Add to Basket
+        function AddToBasket() {
+            const bookId = document.getElementById("bookId").value;
+            const qty = document.getElementById("countInput").value;
+            const data = { bookId: bookId, qty: qty };
+
+            fetch('/Order/AddToBasket/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (!data.res) {
+                        Swal.fire({
+                            title: "ثبت نام",
+                            text: "شما باید در سایت لاگین کنید!",
+                            icon: "question",
+                        });
+                    } else {
+                        Swal.fire({
+                            position: "top-end",
+                            icon: "success",
+                            title: "Your work has been saved",
+                            showConfirmButton: false,
+                            timer: 1500,
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+    </script>
+}

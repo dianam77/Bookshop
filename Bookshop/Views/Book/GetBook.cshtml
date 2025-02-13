@@ -1,0 +1,65 @@
+﻿@using DataAccess.Models
+@model Book
+
+<div class="myHeader">
+    <div class="headerItems">
+        <img class="headImg" style="width:280px; height:300px;" src="/downloadFile/@Model.Img" alt="@Model.Title" />
+    </div>
+
+    <div class="headerItems">
+        <h1>
+            @Model.Title
+        </h1>
+        <p>
+            @Model.Description
+        </p>
+        <p>
+            @Model.Author?.Name
+        </p>
+
+        <div class="bookPrice">
+            <input id="bookIntPrice" type="hidden" value="15000">
+            <strong id="bookShowPrice"> @Model.Price تومان </strong>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const applyTheme = () => {
+            const isDarkMode = document.body.classList.contains('dark-mode');
+
+            // General element updates
+            document.querySelectorAll('.myHeader, .headerItems, .modal-body').forEach(element => {
+                element.style.backgroundColor = isDarkMode ? '#444' : ''; // Match dark mode background
+                element.style.color = isDarkMode ? '#ffffff' : ''; // Text color
+            });
+
+            // Specific modal-content handling via class
+            const modalContentElements = document.querySelectorAll('.modal-content');
+            modalContentElements.forEach(element => {
+                if (isDarkMode) {
+                    element.classList.add('dark-mode'); // Add dark-mode class
+                } else {
+                    element.classList.remove('dark-mode'); // Remove dark-mode class
+                }
+            });
+
+            // Highlight book price
+            document.querySelectorAll('.bookPrice strong').forEach(element => {
+                element.style.color = isDarkMode ? '#ffcc00' : ''; // Highlight price in a contrasting color
+            });
+        };
+
+        // Apply the theme on load
+        applyTheme();
+
+        // Observe changes in body class for theme toggling
+        const observer = new MutationObserver(() => {
+            applyTheme();
+        });
+        observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+    });
+
+</script>
+

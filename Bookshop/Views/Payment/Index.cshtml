@@ -1,0 +1,147 @@
+﻿@model DataAccess.Models.Payment
+
+<h2>پرداخت آنلاین</h2>
+
+<form asp-action="ProcessPayment" method="post" id="paymentForm">
+    <div class="form-group">
+        <label for="CardNumber">شماره کارت:</label>
+        <input type="text" asp-for="CardNumber" id="CardNumber" required pattern="\d{16}" title="Please enter a valid 16-digit card number" />
+    </div>
+
+    <div class="form-group">
+        <label for="CardHolderName">نام دارنده کارت:</label>
+        <input type="text" asp-for="CardHolderName" id="CardHolderName" required title="Please enter the cardholder's name" />
+    </div>
+
+    <div class="form-group">
+        <label for="ExpiryDate">تاریخ انقضا (MM/YY):</label>
+        <input type="text" asp-for="ExpiryDate" id="ExpiryDate" required pattern="(0[1-9]|1[0-2])\/?([0-9]{2})" title="Please enter a valid expiry date in the format MM/YY" />
+    </div>
+
+    <div class="form-group">
+        <label for="CVV">CVV:</label>
+        <input type="text" asp-for="CVV" id="CVV" required pattern="\d{3,4}" title="Please enter a valid 3 or 4-digit CVV" />
+    </div>
+
+    <div class="form-group">
+        <label for="Amount">مبلغ:</label>
+        <input type="number" asp-for="Amount" id="Amount" readonly required />
+    </div>
+
+    <!-- Submit button -->
+    <button type="submit" id="paymentButton">پرداخت</button>
+</form>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const darkModeToggle = document.getElementById('darkModeToggle');
+
+        // Event listener for dark mode toggle button
+        darkModeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+
+            // Apply dark mode styles
+            if (document.body.classList.contains('dark-mode')) {
+                document.body.style.backgroundColor = '#333'; // Dark background for body
+                document.body.style.color = '#ffffff'; // White text for dark mode
+
+                // Apply dark background for the form and inputs
+                document.querySelectorAll('.form-group').forEach(element => {
+                    element.style.backgroundColor = '#444'; // Dark background for form group
+                });
+
+                document.querySelectorAll('input').forEach(element => {
+                    element.style.backgroundColor = '#555'; // Dark background for input fields
+                    element.style.color = '#ffffff'; // White text for inputs
+                    element.style.borderColor = '#666'; // Dark border color for inputs
+                });
+
+                document.querySelectorAll('label').forEach(element => {
+                    element.style.color = '#ffffff'; // White text for labels
+                });
+
+                document.querySelectorAll('button').forEach(element => {
+                    element.style.backgroundColor = '#444'; // Dark background for button
+                    element.style.color = '#ffffff'; // White text for button
+                    element.style.borderColor = '#666'; // Dark border color for button
+                });
+
+                // Update button appearance for dark mode toggle
+                darkModeToggle.innerHTML = '<i class="fa fa-sun-o"></i>'; // Sun icon for dark mode
+                darkModeToggle.style.backgroundColor = '#444'; // Dark background for the button
+                darkModeToggle.style.color = '#ffffff'; // White icon color
+            } else {
+                document.body.style.backgroundColor = '#f5f5f5'; // Light gray background for body
+                document.body.style.color = '#333'; // Dark gray text for light mode
+
+                // Reset background color and text color for form group and inputs
+                document.querySelectorAll('.form-group').forEach(element => {
+                    element.style.backgroundColor = ''; // Reset background color for form group
+                });
+
+                document.querySelectorAll('input').forEach(element => {
+                    element.style.backgroundColor = ''; // Reset background color for inputs
+                    element.style.color = ''; // Reset text color for inputs
+                    element.style.borderColor = ''; // Reset border color for inputs
+                });
+
+                document.querySelectorAll('label').forEach(element => {
+                    element.style.color = ''; // Reset label text color
+                });
+
+                document.querySelectorAll('button').forEach(element => {
+                    element.style.backgroundColor = ''; // Reset background color for button
+                    element.style.color = ''; // Reset text color for button
+                    element.style.borderColor = ''; // Reset border color for button
+                });
+
+                // Update button appearance for light mode toggle
+                darkModeToggle.innerHTML = '<i class="fa fa-moon-o"></i>'; // Moon icon for light mode
+                darkModeToggle.style.backgroundColor = 'white'; // Light background for the button
+                darkModeToggle.style.color = 'black'; // Black icon color
+            }
+
+            // Save the theme in localStorage
+            localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+        });
+
+        // Load theme from localStorage
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-mode');
+            darkModeToggle.innerHTML = '<i class="fa fa-sun-o"></i>'; // Sun icon for dark mode
+            darkModeToggle.style.backgroundColor = '#444'; // Dark background for the button
+            darkModeToggle.style.color = '#ffffff'; // White icon color
+
+            // Apply dark mode styles to the form and button
+            document.querySelectorAll('.form-group').forEach(element => {
+                element.style.backgroundColor = '#444'; // Dark background for form group
+            });
+
+            document.querySelectorAll('input').forEach(element => {
+                element.style.backgroundColor = '#555'; // Dark background for input fields
+                element.style.color = '#ffffff'; // White text for inputs
+                element.style.borderColor = '#666'; // Dark border color for inputs
+            });
+
+            document.querySelectorAll('label').forEach(element => {
+                element.style.color = '#ffffff'; // White text for labels
+            });
+            document.querySelectorAll('.container').forEach(element => {
+                element.style.backgroundColor = '#444'; // Darker background for the container
+                element.style.color = '#ffffff'; // White text for the container
+            });
+
+            document.querySelectorAll('button').forEach(element => {
+                element.style.backgroundColor = '#444'; // Dark background for button
+                element.style.color = '#ffffff'; // White text for button
+                element.style.borderColor = '#666'; // Dark border color for button
+            });
+        } else {
+            document.body.classList.remove('dark-mode');
+            darkModeToggle.innerHTML = '<i class="fa fa-moon-o"></i>'; // Moon icon for light mode
+            darkModeToggle.style.backgroundColor = 'white'; // Light background for the button
+            darkModeToggle.style.color = 'black'; // Black icon color
+        }
+    });
+</script>

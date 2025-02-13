@@ -1,0 +1,85 @@
+﻿@model DataAccess.Models.Book
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-r from-red-300 via-orange-200 to-red-400 min-h-screen">
+
+    <div class="container mx-auto p-6">
+        <h1 class="text-4xl font-extrabold text-center text-black-50 mb-8">حذف کتاب</h1>
+
+        <!-- Confirmation Prompt -->
+        <div class="max-w-lg mx-auto bg-white shadow-xl rounded-xl p-8 space-y-6">
+            <h3 class="text-xl font-semibold text-red-600">آیا مطمئن هستید که می خواهید این کتاب را حذف کنید؟</h3>
+            <hr class="border-t-2 border-red-400 mb-6" />
+
+            <dl class="space-y-4">
+                <!-- Title -->
+                <div class="flex justify-between items-center">
+                    <dt class="text-lg font-medium text-red-600">عنوان:</dt>
+                    <dd class="text-lg text-gray-700">@Html.DisplayFor(model => model.Title)</dd>
+                </div>
+
+                <!-- Description -->
+                <div class="flex justify-between items-center">
+                    <dt class="text-lg font-medium text-red-600">توضیحات:</dt>
+                    <dd class="text-lg text-gray-700">@Html.DisplayFor(model => model.Description)</dd>
+                </div>
+
+                <!-- Price -->
+                <div class="flex justify-between items-center">
+                    <dt class="text-lg font-medium text-red-600">قيمت:</dt>
+                    <dd class="text-lg text-gray-700">@Html.DisplayFor(model => model.Price)</dd>
+                </div>
+
+                <!-- Image -->
+                <div class="flex justify-between items-center">
+                    <dt class="text-lg font-medium text-red-600">تصویر:</dt>
+                    <dd>
+                        @if (!string.IsNullOrEmpty(Model.Img))
+
+                        {
+                            <img src="@Url.Content(Model.Img)" style="width: 200px;" alt="Book Image" class="rounded-md shadow-md border-4 border-red-500" />
+                        }
+
+                        else
+
+                        {
+                            <span class="text-pink-500">No Image Available</span>
+                        }
+                    </dd>
+                </div>
+
+                <!-- Author -->
+                <div class="flex justify-between items-center">
+                    <dt class="text-lg font-medium text-red-600">نویسنده:</dt>
+                    <dd class="text-lg text-gray-700">
+                        @(Model.Author != null ? Model.Author.Name : "Unknown Author")
+                    </dd>
+
+                </div>
+            </dl>
+
+            <!-- Delete Form -->
+            <form asp-action="Delete" class="flex justify-between items-center space-x-4">
+                <input type="hidden" asp-for="Id" />
+                <button type="submit" class="px-6 py-2 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105">
+                    حذف
+                </button>
+                <a asp-action="Index" class="text-blue-500 hover:text-blue-700 text-lg transition duration-200">بازگشت به لیست</a>
+            </form>
+        </div>
+
+    </div>
+    <br /><br />
+</body>
+</html>

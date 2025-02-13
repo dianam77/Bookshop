@@ -1,0 +1,104 @@
+﻿@model Core.BookService.BookDto
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-r from-blue-300 via-pink-200 to-blue-400 min-h-screen">
+
+    <div class="container mx-auto p-6">
+        <h1 class="text-4xl font-extrabold text-center text-gray-800 mb-8">ویرایش کتاب</h1>
+
+        <form asp-action="Edit" enctype="multipart/form-data" class="bg-white shadow-xl rounded-xl p-8 space-y-6">
+            <div asp-validation-summary="ModelOnly" class="text-red-500 mb-4"></div>
+            <input type="hidden" asp-for="Id" />
+
+            <div class="form-group">
+                <label asp-for="Title" class="block text-lg font-semibold text-gray-700">عنوان</label>
+                <input asp-for="Title" class="form-control mt-2 p-3 border-2 border-blue-300 rounded-lg shadow-md focus:ring-4 focus:ring-blue-500 w-full" />
+                <span asp-validation-for="Title" class="text-red-500"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Description" class="block text-lg font-semibold text-gray-700">توضیحات</label>
+                <textarea asp-for="Description" class="form-control mt-2 p-3 border-2 border-blue-300 rounded-lg shadow-md focus:ring-4 focus:ring-blue-500 w-full"></textarea>
+                <span asp-validation-for="Description" class="text-red-500"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Price" class="block text-lg font-semibold text-gray-700">قيمت</label>
+                <input asp-for="Price" type="number" class="form-control mt-2 p-3 border-2 border-blue-300 rounded-lg shadow-md focus:ring-4 focus:ring-blue-500 w-full" />
+                <span asp-validation-for="Price" class="text-red-500"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="block text-lg font-semibold text-gray-700">تصویر</label>
+                <img id="imagePreview" src="@Url.Content(Model.ImgName)" width="200" alt="Book Image" class="rounded-md shadow-lg border-4 border-blue-500 mb-4" />
+                <input type="file" asp-for="Img" class="form-control mt-2 p-3 border-2 border-blue-300 rounded-lg shadow-md focus:ring-4 focus:ring-blue-500 w-full" accept="image/*" onchange="previewImage(event)" />
+                <div id="fileError" class="text-red-500 mb-4" style="display:none;">حجم فایل تصویر نباید بیشتر از 200KB باشد.</div>
+                <span asp-validation-for="Img" class="text-red-500"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="AuthorId" class="block text-lg font-semibold text-gray-700">نویسنده</label>
+                <select asp-for="AuthorId" class="form-control mt-2 p-3 border-2 border-blue-300 rounded-lg shadow-md focus:ring-4 focus:ring-blue-500 w-full" asp-items="ViewBag.AuthorId"></select>
+                <span asp-validation-for="AuthorId" class="text-red-500"></span>
+            </div>
+
+            <div class="form-group flex items-center space-x-4">
+                <div class="flex items-center">
+                    <input asp-for="IsAvail" type="checkbox" class="form-check-input w-5 h-5 ml-2" />
+                    <label class="text-lg font-semibold text-gray-700">در دسترس</label>
+                </div>
+                <div class="flex items-center">
+                    <input asp-for="ShowHomePage" type="checkbox" class="form-check-input w-5 h-5 ml-2" />
+                    <label class="text-lg font-semibold text-gray-700">نمایش در صفحه اصلی</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="ذخیره" class="btn px-6 py-3 bg-gradient-to-r from-pink-500 to-blue-500 hover:bg-gradient-to-l text-white font-semibold rounded-lg shadow-md w-full transition duration-300 ease-in-out transform hover:scale-105" />
+            </div>
+        </form>
+
+        <div class="mt-6 text-center">
+            <a asp-action="Index" class="text-gray-700 hover:text-yellow-400 text-lg transition duration-200">بازگشت به لیست</a>
+        </div>
+    </div>
+
+    <script>
+        function previewImage(event) {
+            const file = event.target.files[0];
+            const preview = document.getElementById('imagePreview');
+            const errorDiv = document.getElementById('fileError'); // Reference to the error message div
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+
+                // Check the size of the selected image
+                if (file.size > 200 * 1024) { // 200KB
+                    errorDiv.style.display = 'block';
+                    event.target.value = '';  // Clear the file input
+                    preview.style.display = 'none'; // Hide the preview image
+                } else {
+                    errorDiv.style.display = 'none'; // Hide the error message if the file is valid
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,50 @@
+﻿@model DataAccess.Models.Comment
+
+@{
+    ViewData["Title"] = "Edit Reply";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-r from-blue-300 via-pink-200 to-blue-400 min-h-screen">
+
+    <div class="container mx-auto p-6">
+        <h1 class="text-4xl font-extrabold text-center text-black-50 mb-8">ویرایش پاسخ</h1>
+
+        <form asp-action="EditReply" method="post" class="bg-white shadow-xl rounded-xl p-8 space-y-6">
+            @Html.AntiForgeryToken()
+
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="BookId" />
+            <input type="hidden" asp-for="ReplyId" />
+            <input type="hidden" asp-for="UserId" />
+            <input type="hidden" asp-for="UserName" />
+
+            <div asp-validation-summary="ModelOnly" class="text-red-500 mb-4"></div>
+
+            <div class="form-group">
+                <label asp-for="Text" class="block text-lg font-semibold text-gray-700">متن پاسخ</label>
+                <textarea asp-for="Text" class="mt-2 p-3 border-2 border-blue-300 rounded-lg shadow-md focus:ring-4 focus:ring-blue-500 w-full"></textarea>
+                <span asp-validation-for="Text" class="text-red-500"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="ذخیره" class="btn px-6 py-3 bg-gradient-to-r from-pink-500 to-blue-500 hover:bg-gradient-to-l text-white font-semibold rounded-lg shadow-md w-full transition duration-300 ease-in-out transform hover:scale-105" />
+            </div>
+        </form>
+
+        <div class="mt-6 text-center">
+            <a asp-action="Details" asp-route-id="@Model.Id" class="text-black-50 hover:text-yellow-300 text-lg transition duration-200">
+                بازگشت به لیست
+            </a>
+        </div>
+    </div>
+    <br /><br />
+</body>
+</html>

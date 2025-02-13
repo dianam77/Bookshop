@@ -1,0 +1,20 @@
+﻿@{
+    ViewData["Title"] = "نتیجه پرداخت";
+}
+
+<h2>نتیجه پرداخت</h2>
+
+@if (ViewBag.IsSuccess)
+{
+    <div style="color: green;">
+        <h3>پرداخت با موفقیت انجام شد!</h3>
+    </div>
+}
+else
+{
+    <div style="color: red;">
+        <h3>پرداخت ناموفق بود. لطفاً مجدداً تلاش کنید.</h3>
+    </div>
+}
+
+<a href="/Order/Basket">بازگشت به سبد خرید</a>

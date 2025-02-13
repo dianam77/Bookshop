@@ -1,0 +1,145 @@
+﻿@using Core.Extenstion
+@using Core.OrderService.Model
+@using DataAccess.Enums
+@using Newtonsoft.Json
+@model List<AdmiOrderDto>
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
+@{
+    ViewData["Title"] = "آمار فروش";
+
+    // گروه‌بندی سفارشات بر اساس ماه (فرمت سال-ماه)
+    var salesData = Model
+        .Where(order => order.Payed != DateTime.MinValue) // Ensures only valid dates are used
+        .GroupBy(order => order.Payed.ToString("yyyy-MM")) // Group by Year-Month
+        .Select(g => new { Month = g.Key, Count = g.Count() })
+        .ToList();
+
+    // استخراج برچسب‌ها (ماه‌ها) و مقادیر (تعداد فروش‌ها)
+    var labels = salesData.Select(d => d.Month).ToList();
+    var values = salesData.Select(d => d.Count).ToList();
+}
+
+<div class="container">
+    <h2>@ViewData["Title"]</h2>
+
+    <div class="row">
+        <div class="col-md-8">
+            <canvas id="salesChart" width="400" height="300"></canvas>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>کاربر</th>
+                    <th>تاریخ پرداخت</th>
+                    <th>وضعیت</th>
+                    <th>محصولات</th>
+                    <th>تعداد</th>
+                    <th>عملیات</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.UserName</td>
+                        <td>@item.Payed.ToPersianDateString()</td>
+                        <td>
+                            <span class="status" style="@(item.Status == Status.Rejected ? "color:red;" : item.Status == Status.Final ? "color:blue;" : "")">
+                                @(item.Status == Status.Accepted ? "ارسال شده" :
+                                    item.Status == Status.Rejected ? "لغو شده" :
+                                    item.Status == Status.Final ? "در انتظار تایید" : "نامشخص")
+                            </span>
+                        </td>
+                        <td>@string.Join(", ", item.Items)</td>
+                        <td>@item.Items.Count</td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">ویرایش</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var labels = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(labels))');
+        var data = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(values))');
+
+        const ctx = document.getElementById('salesChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'آمار فروش در ماه‌ها',
+                    data: data,
+                    backgroundColor: [
+                        'rgba(75, 192, 192, 0.8)',
+                        'rgba(255, 99, 132, 0.8)',
+                        'rgba(54, 162, 235, 0.8)',
+                        'rgba(255, 206, 86, 0.8)',
+                        'rgba(153, 102, 255, 0.8)',
+                    ],
+                    borderColor: [
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(153, 102, 255, 1)',
+                    ],
+                    borderWidth: 1,
+                    barThickness: 30,
+                    hoverBackgroundColor: 'rgba(0, 123, 255, 0.6)',
+                    hoverBorderColor: 'rgba(0, 123, 255, 1)',
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function (tooltipItem) {
+                                return tooltipItem.label + ": " + tooltipItem.raw + " سفارش";
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 1,
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            font: {
+                                size: 12,
+                                weight: 'bold',
+                            },
+                            color: '#333',
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+}

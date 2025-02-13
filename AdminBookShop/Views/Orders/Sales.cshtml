@@ -1,0 +1,84 @@
+﻿@{
+    ViewData["Title"] = "Sales Chart";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gradient-to-r from-blue-50 to-blue-100 min-h-screen">
+
+    <!-- Main Container -->
+    <div class="container mx-auto p-6">
+
+        <!-- Page Title -->
+        <h1 class="text-4xl font-extrabold text-center text-blue-800 mb-8">@ViewData["Title"]</h1>
+
+        <!-- Chart Container -->
+        <div class="bg-white shadow-lg rounded-xl p-6 mb-8">
+            <canvas id="salesChart" class="w-full h-64"></canvas>
+        </div>
+
+        <!-- Optional: Button for Refreshing Data -->
+        <div class="text-center">
+            <button onclick="fetchSalesData()" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-800 transition-all">
+                Refresh Data
+            </button>
+        </div>
+
+    </div>
+    <br />
+    <br />
+
+    <script>
+        // Fetching sales data and initializing the chart
+        function fetchSalesData() {
+            fetch('@Url.Action("SalesData", "Orders")')
+                .then(response => response.json())
+                .then(data => {
+                    const ctx = document.getElementById('salesChart').getContext('2d');
+                    new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: data.labels,
+                            datasets: [{
+                                label: 'Sales',
+                                data: data.sales,
+                                backgroundColor: 'rgba(54, 162, 235, 0.2)',  // Light blue color
+                                borderColor: 'rgba(54, 162, 235, 1)',      // Darker blue border
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true, // Ensures the chart is responsive
+                            plugins: {
+                                legend: {
+                                    position: 'top'
+                                },
+                                tooltip: {
+                                    callbacks: {
+                                        label: tooltipItem => `${tooltipItem.raw} sales`
+                                    }
+                                }
+                            },
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                })
+                .catch(error => console.error('Error fetching sales data:', error));
+        }
+
+        // Initialize the chart on page load
+        document.addEventListener('DOMContentLoaded', fetchSalesData);
+    </script>
+</body>
+</html>

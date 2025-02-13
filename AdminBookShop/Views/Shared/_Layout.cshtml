@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - AdminBookShop</title>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="~/AdminBookShop.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://jsuites.net/v5/jsuites.css" type="text/css" />
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://jsuites.net/v5/jsuites.js"></script>
+    <script src="https://jsuites.net/v5/jsuites.webcomponents.js"></script>
+</head>
+<body>
+    <div dir="rtl" style="font-family: 'IranSans';">
+        <!-- Navbar -->
+        <nav class="nav">
+            <!-- Hamburger Button (visible on small screens) -->
+            <div class="mobilenav">
+                <i id="mynavbtn" class="fa fa-bars" aria-label="Toggle navigation"></i>
+            </div>
+
+            <!-- Navbar Links (Desktop and mobile toggle) -->
+            <div id="desktopnav" class="navbar">
+                <a href="/Authors">نویسنده</a>
+                <a href="/Books">کتاب‌ها</a>
+                <a href="/Orders">سفارشات</a>
+                <a href="/Comments">نظرات</a>
+            </div>
+        </nav>
+    </div>
+
+    <main role="main" class="container pb-3 pt-36">
+        <div>
+            @RenderBody()
+        </div>
+    </main>
+
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+            integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+            crossorigin="anonymous"></script>
+    <script src="~/js/scripts.js" asp-append-version="true"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+    <script>
+        // Mobile Navbar Toggle
+        document.getElementById('mynavbtn').addEventListener('click', function () {
+            const nav = document.getElementById('desktopnav');
+            nav.style.display = nav.style.display === 'block' ? 'none' : 'block';
+        });
+    </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

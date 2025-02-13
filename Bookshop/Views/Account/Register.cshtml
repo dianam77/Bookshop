@@ -1,0 +1,61 @@
+﻿@model RegisterDto
+@{
+    ViewData["Title"] = "Register";
+}
+
+
+<!-- register -->
+<div class="log-container">
+    <form asp-action="Register" method="post" class="register-form">
+        <h2>ثبت نام</h2>
+
+        <div class="input-group">
+            <label asp-for="Email">ایمیل</label>
+            <input asp-for="Email" type="email" id="email" name="email" required>
+        </div>
+        <div class="input-group">
+            <label asp-for="Password">رمز عبور</label>
+            <input asp-for="Password" type="password" id="password" name="password" required>
+        </div>
+
+        <div class="input-group">
+            <label asp-for="ConfrimPassword">تکرار رمز عبور</label>
+            <input asp-for="ConfrimPassword" type="password" id="ConfrimPassword" name="ConfrimPassword" required>
+        </div>
+
+        <button type="submit" style="font-family:IranSans; font-size: 20px;">ثبت نام</button>
+        <p>آیا اکانت داری؟<a asp-controller="Account" asp-action="Login">ورود</a></p>
+
+    </form>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const darkModeToggle = document.getElementById('darkModeToggle'); // Toggle button for dark mode
+
+        // Function to toggle dark mode styles
+        const toggleDarkMode = () => {
+            document.body.classList.toggle('dark-mode'); // Toggle the 'dark-mode' class on the body
+
+            if (document.body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark'); // Save preference
+                darkModeToggle.innerHTML = '<i class="fa fa-sun-o"></i>'; // Sun icon for light mode toggle
+            } else {
+                localStorage.setItem('theme', 'light'); // Save preference
+                darkModeToggle.innerHTML = '<i class="fa fa-moon-o"></i>'; // Moon icon for dark mode toggle
+            }
+        };
+
+        // Check the saved theme in localStorage and apply it
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-mode');
+            darkModeToggle.innerHTML = '<i class="fa fa-sun-o"></i>'; // Sun icon for light mode toggle
+        } else {
+            document.body.classList.remove('dark-mode');
+            darkModeToggle.innerHTML = '<i class="fa fa-moon-o"></i>'; // Moon icon for dark mode toggle
+        }
+
+        // Add event listener to the button to toggle dark mode
+        darkModeToggle.addEventListener('click', toggleDarkMode);
+    });
+</script>
