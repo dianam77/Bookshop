@@ -25,7 +25,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.Services.DbContextInitializer();
+//app.Services.DbContextInitializer();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

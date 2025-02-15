@@ -1,12 +1,8 @@
-﻿using System;
-using System.IO;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using Core.ServiceFile;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using NUnit.Framework;
 using AutoFixture;
 using AutoFixture.AutoMoq;
 
@@ -15,20 +11,17 @@ namespace BookShopTests.Controller
     [TestFixture]
     public class FileDisplayControllerTests
     {
-        private IFixture _fixture;  // AutoFixture instance
+        private IFixture _fixture;  
         private Mock<IFileService> _mockFileService;
         private FileDisplayController _Sut;
 
         [SetUp]
         public void Setup()
         {
-            // Initialize AutoFixture with AutoMoq customization to automatically create mocks
             _fixture = new Fixture().Customize(new AutoMoqCustomization());
 
-            // Create the mock using AutoFixture
             _mockFileService = _fixture.Freeze<Mock<IFileService>>();
 
-            // Instantiate the controller with the mocked IFileService
             _Sut = new FileDisplayController(_mockFileService.Object);
         }
 
@@ -39,7 +32,6 @@ namespace BookShopTests.Controller
             var fileName = "sample.txt";
             var mockMemoryStream = new MemoryStream(Encoding.UTF8.GetBytes("Sample file content"));
 
-            // Setup the mock to return a MemoryStream for the file
             _mockFileService.Setup(x => x.DownloadFileAsync(It.Is<string>(s => s == fileName)))
                             .ReturnsAsync(mockMemoryStream);
 
@@ -54,7 +46,6 @@ namespace BookShopTests.Controller
             using var resultStream = new MemoryStream();
             await fileResult.FileStream.CopyToAsync(resultStream);
 
-            // Verify that the content is the same as the mock data
             resultStream.ToArray().Should().BeEquivalentTo(mockMemoryStream.ToArray());
         }
 
@@ -65,7 +56,6 @@ namespace BookShopTests.Controller
             // Arrange
             var fileName = "nonexistentfile.txt";
 
-            // Setup the mock to throw a FileNotFoundException
             _mockFileService.Setup(x => x.DownloadFileAsync(It.IsAny<string>()))
                             .ThrowsAsync(new FileNotFoundException());
 
@@ -83,7 +73,6 @@ namespace BookShopTests.Controller
             // Arrange
             var fileName = "sample.txt";
 
-            // Setup the mock to throw a general exception for unexpected errors
             _mockFileService.Setup(x => x.DownloadFileAsync(It.IsAny<string>()))
                             .ThrowsAsync(new Exception("Unexpected error"));
 
@@ -96,7 +85,6 @@ namespace BookShopTests.Controller
             statusCodeResult.Value.Should().Be("An unexpected error occurred.");
         }
 
-        // Edge case: Test with an empty file name
         [Test]
         public async Task DisplayFile_Should_Return_BadRequest_When_File_Name_Is_Empty()
         {
@@ -111,7 +99,6 @@ namespace BookShopTests.Controller
             badRequestResult.Value.Should().Be("File name cannot be empty.");
         }
 
-        // Edge case: Test with an invalid file name (e.g., file with illegal characters)
         [Test]
         public async Task DisplayFile_Should_Return_BadRequest_When_File_Name_Is_Invalid()
         {

@@ -20,10 +20,7 @@ namespace AdminBookShop.Tests
         public void SetUp()
         {
             _fixture = new Fixture().Customize(new AutoMoqCustomization());
-
-            // Add OmitOnRecursionBehavior to avoid circular reference issues
             _fixture.Behaviors.Add(new OmitOnRecursionBehavior());
-
             _mockCommentRepository = _fixture.Freeze<Mock<ICommentRepository>>();
             _sut = new CommentsController(_mockCommentRepository.Object);
         }
@@ -31,7 +28,6 @@ namespace AdminBookShop.Tests
         [TearDown]
         public void TearDown()
         {
-            // Dispose of the controller instance to release resources
             _sut?.Dispose();
         }
 
@@ -108,7 +104,7 @@ namespace AdminBookShop.Tests
         public async Task Details_ShouldReturnNotFound_WhenCommentDoesNotExist()
         {
             // Arrange
-            var commentId = 999; // assuming this ID does not exist
+            var commentId = 999;
             _mockCommentRepository.Setup(repo => repo.GetCommentById(commentId))
                 .ReturnsAsync((Comment)null!);
 
@@ -148,7 +144,7 @@ namespace AdminBookShop.Tests
         public async Task Reply_ShouldReturnNotFound_WhenCommentDoesNotExist()
         {
             // Arrange
-            var commentId = 999; // This ID should not exist in the mocked repository
+            var commentId = 999; 
             _mockCommentRepository.Setup(repo => repo.GetCommentById(commentId)).ReturnsAsync((Comment?)null);
 
             // Act
@@ -167,19 +163,15 @@ namespace AdminBookShop.Tests
                 .With(c => c.Id, commentId)
                 .With(c => c.Text, "Editable Comment")
                 .Create();
-
-            // Mocking repository to return a valid comment
             _mockCommentRepository.Setup(repo => repo.GetCommentById(commentId))
-                .ReturnsAsync(comment);  // Ensure the repository returns a comment for the given ID
+                .ReturnsAsync(comment);  
 
             // Act
             var result = await _sut.Edit(commentId);
 
-            // Debugging to check what type is returned
-            Console.WriteLine($"Returned result type: {result.GetType()}");  // Should be ViewResult
-
+            Console.WriteLine($"Returned result type: {result.GetType()}");  
             // Assert
-            result.Should().BeOfType<ViewResult>();  // Expecting a ViewResult
+            result.Should().BeOfType<ViewResult>();
             var viewResult = result as ViewResult;
             viewResult.Should().NotBeNull();
 
@@ -194,7 +186,7 @@ namespace AdminBookShop.Tests
         public async Task Edit_ShouldReturnNotFound_WhenCommentDoesNotExist()
         {
             // Arrange
-            var commentId = 999; // assuming this ID does not exist
+            var commentId = 999;
             _mockCommentRepository.Setup(repo => repo.GetCommentById(commentId)).ReturnsAsync((Comment?)null);
 
             // Act
@@ -209,7 +201,7 @@ namespace AdminBookShop.Tests
         {
             // Arrange
             var commentId = 1;
-            var comment = new Comment { Id = commentId, Text = string.Empty }; // Invalid model
+            var comment = new Comment { Id = commentId, Text = string.Empty }; 
             _sut.ModelState.AddModelError("Text", "Required");
 
             // Act
@@ -249,7 +241,7 @@ namespace AdminBookShop.Tests
         public async Task Delete_ShouldReturnNotFound_WhenCommentDoesNotExist()
         {
             // Arrange
-            var commentId = 999; // assuming this ID does not exist
+            var commentId = 999;
             _mockCommentRepository.Setup(repo => repo.GetCommentById(commentId)).ReturnsAsync((Comment?)null);
 
             // Act

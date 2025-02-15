@@ -1,8 +1,6 @@
-﻿using NUnit.Framework;
-using Moq;
+﻿using Moq;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 using Core.BookService;
 using Core.ServiceFile;
 using DataAccess.Models;
@@ -10,14 +8,10 @@ using DataAccess.Repositories.RateBookRepo;
 using Bookshop.Controllers;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
-using System.IO;
 using System.Text;
-using System;
 using Bookshop.Models;
 using AutoFixture;
-using AutoFixture.NUnit3;
 using AutoFixture.AutoMoq;
-using AutoFixture.Kernel;
 
 namespace BookShopTests.Controller
 {
@@ -33,18 +27,14 @@ namespace BookShopTests.Controller
         [SetUp]
         public void Setup()
         {
-            // Initialize AutoFixture with AutoMoq customization
             _fixture = new Fixture().Customize(new AutoMoqCustomization());
 
-            // Add OmitOnRecursionBehavior to prevent circular reference issues
             _fixture.Behaviors.Add(new OmitOnRecursionBehavior());
 
-            // Create mocks automatically using AutoFixture
             _mockBookService = _fixture.Freeze<Mock<IBookService>>();
             _mockFileService = _fixture.Freeze<Mock<IFileService>>();
             _mockRateBookRepository = _fixture.Freeze<Mock<IRateBookRepository>>();
 
-            // Instantiate controller
             _Sut = new BookController(_mockBookService.Object, _mockFileService.Object, _mockRateBookRepository.Object);
         }
 
@@ -74,7 +64,7 @@ namespace BookShopTests.Controller
         public async Task Index_Returns_ViewResult_With_BookDetails()
         {
             // Arrange
-            var book = _fixture.Create<Book>(); // AutoFixture automatically generates an instance
+            var book = _fixture.Create<Book>(); 
             var booksBySameAuthor = new[] { _fixture.Create<Book>() };
             var comments = new[] { _fixture.Create<Comment>() };
 
@@ -82,7 +72,6 @@ namespace BookShopTests.Controller
             _mockBookService.Setup(x => x.GetBooksBySameAuthor(1, 10)).ReturnsAsync(booksBySameAuthor);
             _mockBookService.Setup(x => x.GetCommentsByBookId(1)).ReturnsAsync(comments);
 
-            // Set up a mock authenticated user
             var claims = new ClaimsPrincipal(new ClaimsIdentity(new[] { new Claim(ClaimTypes.NameIdentifier, "1") }, "mock"));
             _Sut.ControllerContext = new ControllerContext { HttpContext = new DefaultHttpContext { User = claims } };
 
@@ -97,7 +86,7 @@ namespace BookShopTests.Controller
         public async Task RateBook_Returns_Unauthorized_When_User_Not_Authenticated()
         {
             // Arrange
-            var model = _fixture.Create<RateBookModel>(); // AutoFixture will generate a RateBookModel
+            var model = _fixture.Create<RateBookModel>();
             _Sut.ControllerContext = new ControllerContext { HttpContext = new DefaultHttpContext() };
 
             // Act
@@ -112,7 +101,7 @@ namespace BookShopTests.Controller
         {
             // Arrange
             var model = _fixture.Create<RateBookModel>();
-            model.UserId = ""; // Manually set invalid UserId
+            model.UserId = ""; 
 
             var claims = new ClaimsPrincipal(new ClaimsIdentity(new[] { new Claim(ClaimTypes.NameIdentifier, "1") }, "mock"));
             _Sut.ControllerContext = new ControllerContext { HttpContext = new DefaultHttpContext { User = claims } };

@@ -1,18 +1,14 @@
-﻿using System.Linq;
-using System.Reflection;
-using System.Linq;
-using System.Reflection;
+﻿using System.Reflection;
 using AutoFixture;
 using AutoFixture.AutoMoq;
 using Bookshop.Controllers;
-using Core.BookService;  // Assuming IBookService is defined here
-using Core.ServiceFile;  // Assuming IFileService is defined here
+using Core.BookService;  
+using Core.ServiceFile; 
 using FluentAssertions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
-using NUnit.Framework;
 
 namespace BookShopTests.Controller
 {
@@ -28,29 +24,24 @@ namespace BookShopTests.Controller
         [SetUp]
         public void Setup()
         {
-            // Initialize AutoFixture with AutoMoq customization.
             _fixture = new Fixture().Customize(new AutoMoqCustomization());
 
-            // Remove the default recursion behavior and add one that omits recursion.
             _fixture.Behaviors
                 .OfType<ThrowingRecursionBehavior>()
                 .ToList()
                 .ForEach(b => _fixture.Behaviors.Remove(b));
             _fixture.Behaviors.Add(new OmitOnRecursionBehavior());
 
-            // Freeze dependencies so that every request for these types returns the same instance.
             _mockLogger = _fixture.Freeze<Mock<ILogger<HomeController>>>();
             _mockBookService = _fixture.Freeze<Mock<IBookService>>();
             _mockFileService = _fixture.Freeze<Mock<IFileService>>();
 
-            // Create the system under test (SUT).
             _sut = new HomeController(_mockLogger.Object, _mockBookService.Object, _mockFileService.Object);
         }
 
         [TearDown]
         public void TearDown()
         {
-            // Dispose of the SUT if necessary (for example, if it implements IDisposable)
             _sut?.Dispose();
         }
 

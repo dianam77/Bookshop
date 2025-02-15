@@ -96,7 +96,6 @@ namespace AdminBookShop.Tests.Controllers
         [TearDown]
         public void TearDown()
         {
-            // Dispose of the controller instance to release resources
             _sut?.Dispose();
         }
 
@@ -106,7 +105,7 @@ namespace AdminBookShop.Tests.Controllers
         {
             // Arrange
             var orderId = 1;
-            var order = new AdmiOrderDto { Id = orderId, UserName = "" }; // Invalid model (empty username)
+            var order = new AdmiOrderDto { Id = orderId, UserName = "" }; 
             _sut.ModelState.AddModelError("UserName", "Required");
 
             // Act

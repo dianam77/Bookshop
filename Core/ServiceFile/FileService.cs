@@ -25,7 +25,7 @@ namespace Core.ServiceFile
             _httpClientFactory = httpClientFactory;
             _storagePath = Path.GetFullPath(Path.Combine(_environment.WebRootPath, "..", "File", "Uploads"));
             Console.WriteLine($"Resolved storage path: {_storagePath}");
-            _client = new RestClient("https://localhost:44383");
+            _client = new RestClient("https://localhost:5000");
             // تنظیم مسیر ذخیره فایل‌ها در پوشه wwwroot/Downloads
             _downloadFolder = Path.Combine(_environment.WebRootPath, "Downloads");
             if (!Directory.Exists(_downloadFolder))
@@ -287,7 +287,7 @@ namespace Core.ServiceFile
 
         public async Task<MemoryStream> DownloadFileAsync(string imageFilePath)
         {
-            string baseUrl = "https://localhost:44383";
+            string baseUrl = "https://localhost:5000";
 
             var fullImageUrl = new Uri(new Uri(baseUrl), imageFilePath);
 

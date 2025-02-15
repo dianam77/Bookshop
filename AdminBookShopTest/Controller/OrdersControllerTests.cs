@@ -28,7 +28,6 @@ namespace AdminBookShop.Tests
         [TearDown]
         public void TearDown()
         {
-            // Dispose of the controller instance to release resources
             _sut?.Dispose();
         }
 
@@ -121,7 +120,7 @@ namespace AdminBookShop.Tests
         public async Task Edit_ShouldReturnNotFound_WhenOrderDoesNotExist()
         {
             // Arrange
-            var orderId = 999; // assuming this ID does not exist
+            var orderId = 999;
             _mockOrderService.Setup(service => service.GetOrderWithId(orderId)).ReturnsAsync((AdmiOrderDto?)null);
 
             // Act
@@ -185,7 +184,7 @@ namespace AdminBookShop.Tests
         public async Task SetStatusCommand_ShouldReturnBadRequest_WhenModelIsInvalid()
         {
             // Arrange
-            var invalidStatusDto = new StatusDto { Id = 0, State = true }; // Invalid Id
+            var invalidStatusDto = new StatusDto { Id = 0, State = true }; 
             _sut.ModelState.AddModelError("Id", "Required");
 
             // Act

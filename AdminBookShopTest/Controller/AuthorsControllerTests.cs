@@ -18,7 +18,6 @@ namespace AdminBookShop.Tests.Controllers
         [SetUp]
         public void Setup()
         {
-            // Initialize AutoFixture with AutoMoq customization.
             _fixture = new Fixture().Customize(new AutoMoqCustomization());
 
             _fixture.Behaviors
@@ -27,7 +26,6 @@ namespace AdminBookShop.Tests.Controllers
                     .ForEach(b => _fixture.Behaviors.Remove(b));
             _fixture.Behaviors.Add(new OmitOnRecursionBehavior());
 
-            // Freeze the IAuthorService mock so that any dependency on it uses the same instance.
             _mockAuthorService = _fixture.Freeze<Mock<IAuthorService>>();
             _sut = new AuthorsController(_mockAuthorService.Object);
         }
@@ -35,14 +33,13 @@ namespace AdminBookShop.Tests.Controllers
         [TearDown]
         public void TearDown()
         {
-            // Dispose of the controller instance to release resources
             _sut?.Dispose();
         }
 
         [Test]
         public async Task Index_ReturnsViewResult_WithListOfAuthors()
         {
-            // Arrange: Create a list of authors using AutoFixture.
+            // Arrange
             var authors = _fixture.CreateMany<Author>(2).ToList();
             _mockAuthorService.Setup(service => service.GetAllAuthorsAsync())
                               .ReturnsAsync(authors);
@@ -117,7 +114,7 @@ namespace AdminBookShop.Tests.Controllers
         [Test]
         public async Task Create_Post_ReturnsViewResult_WhenModelStateIsInvalid()
         {
-            // Arrange: Create an author with a null Name to simulate an invalid model.
+            // Arrange
             var author = _fixture.Build<Author>()
                                  .With(a => a.Name, (string?)null)
                                  .Create();
