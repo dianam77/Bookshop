@@ -19,15 +19,16 @@ public static class InfrastructureServiceRegistration
     public static IServiceCollection RegisterServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddScoped<IAuthorRepository, AuthorRepository>();
-        services.AddScoped<IAuthorService,AuthorService>();
+        services.AddScoped<IAuthorService, AuthorService>();
         services.AddScoped<IBookRepository, BookRepository>();
         services.AddScoped<IBookService, BookService>();
         services.AddScoped<IBasketRepository, BasketRepository>();
-        services.AddScoped<IOrderService,OrderService>();
+        services.AddScoped<IOrderService, OrderService>();
         services.AddScoped<IFileService, FileService>();
         services.AddScoped<ICommentRepository, CommentRepository>();
         services.AddScoped<IRateBookRepository, RateBookRepository>();
 
+        // ASP.NET Identity Setup
         services.AddIdentity<User, Role>(options => {
             options.Password.RequireDigit = false;
             options.Password.RequireLowercase = false;
@@ -49,4 +50,3 @@ public static class InfrastructureServiceRegistration
         return services;
     }
 }
-
