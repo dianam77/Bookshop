@@ -19,9 +19,9 @@ namespace DataAccess.Models
         public Author? Author { get; set; }
         public ICollection<BasketItems>? BasketItems { get; set; }
         public ICollection<Comment>? Comment { get; set; }
-        public ICollection<RateBookModel>? Ratings { get; set; } // لیست امتیازات
-        public decimal AverageRating { get; set; } // میانگین امتیاز
-        public int RatingCount { get; set; } // تعداد امتیازها
+        public ICollection<RateBookModel>? Ratings { get; set; } 
+        public decimal AverageRating { get; set; } 
+        public int RatingCount { get; set; }
       
     }
 }

@@ -30,7 +30,6 @@ namespace DataAccess.Models
         [ForeignKey("ReplyId")]
         public Comment? Reply { get; set; }
 
-        // Removed the Required attribute from Replies
         public ICollection<Comment>? Replies { get; set; }
     }
 

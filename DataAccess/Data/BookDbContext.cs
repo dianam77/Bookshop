@@ -19,12 +19,10 @@ namespace DataAccess.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            // Configuring precision for AverageRating
             modelBuilder.Entity<Book>()
                 .Property(b => b.AverageRating)
                 .HasPrecision(18, 2);
 
-            // Additional configurations if necessary
         }
     }
 }

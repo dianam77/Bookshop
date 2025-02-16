@@ -74,11 +74,10 @@ namespace DataAccess.Data
             var userEmail = "usera@example.com";
             var userPassword = "zxcvb1234";
 
-            // Check if the user already exists
+
             var user = await userManager.FindByNameAsync(userName);
             if (user == null)
             {
-                // Create a new user
                 user = new User
                 {
                     Id = "user1",
