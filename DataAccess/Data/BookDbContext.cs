@@ -7,7 +7,14 @@ namespace DataAccess.Data
     public class BookDbContext : IdentityDbContext<User, Role, string>
     {
         public BookDbContext(DbContextOptions<BookDbContext> options) : base(options) { }
-
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                var connectionString = "Server=localhost\\SQL1;Database=BookDb;User Id=sa;Password=diana1998mi#;TrustServerCertificate=True;";
+                optionsBuilder.UseSqlServer(connectionString);
+            }
+        }
         public DbSet<Author> Authors { get; set; }
         public DbSet<Book> Books { get; set; }
         public DbSet<Basket> Baskets { get; set; }
