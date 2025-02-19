@@ -157,7 +157,7 @@ namespace BookShopTests.Controller
             var model = _fixture.Create<RegisterDto>();
 
             _mockUserManager.Setup(um => um.CreateAsync(It.IsAny<User>(), model.Password))
-                .ReturnsAsync(Microsoft.AspNetCore.Identity.IdentityResult.Failed(new Microsoft.AspNetCore.Identity.IdentityError { Description = "Error" }));  // Fully qualify here
+                .ReturnsAsync(Microsoft.AspNetCore.Identity.IdentityResult.Failed(new Microsoft.AspNetCore.Identity.IdentityError { Description = "Error" }));  
 
             // Act
             var result = await _sut.Register(model);
