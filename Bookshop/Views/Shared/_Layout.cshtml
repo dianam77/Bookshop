@@ -56,7 +56,7 @@
                 <button b-yzt36hb8zc="" id="darkModeToggle" class="dark-mode-toggle" style="background-color: white; color: black;">
                 <i class="fa fa-moon-o" aria-hidden="true"></i>
                 </button>
-                <img src="~/assets/img/logo.svg" style="width:350px; height:120px" alt="logo"></img>
+                <img src="~/assets/img/logo.svg" style="width:350px; height:120px" alt="logo">
             </div>
         </nav>
         <br /><br /><br />
@@ -111,6 +111,7 @@
     <script src="~/js/scripts.js" asp-append-version="true"></script>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script>
+
         document.addEventListener('DOMContentLoaded', () => {
             const darkModeToggle = document.getElementById('darkModeToggle');
             const myNavBtn = document.getElementById('mynavbtn');
@@ -122,6 +123,7 @@
                     ? '<i class="fa fa-sun-o"></i>'
                     : '<i class="fa fa-moon-o"></i>';
             });
+
     </script>
     @await RenderSectionAsync("Scripts", required: false)
 

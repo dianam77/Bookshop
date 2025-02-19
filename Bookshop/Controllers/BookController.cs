@@ -116,10 +116,8 @@ namespace Bookshop.Controllers
                     await _rateBookRepository.Add(newRating);
                 }
 
-                // Update the book information
                 await _bookService.UpdateBook(MapToBookDto(book));
 
-                // Return the result to the frontend
                 return Json(new { success = true, averageRating = book.AverageRating, ratingCount = book.RatingCount });
             }
             catch (Exception ex)
@@ -138,7 +136,7 @@ namespace Bookshop.Controllers
                 Price = book.Price,
                 IsAvail = book.IsAvail,
                 ShowHomePage = book.ShowHomePage,
-                Img = null, // Handle Img separately if needed
+                Img = null,
                 AuthorId = book.AuthorId,
                 AverageRating = book.AverageRating,
                 RatingCount = book.RatingCount
@@ -232,5 +230,6 @@ namespace Bookshop.Controllers
                 return StatusCode(500, "An unexpected error occurred.");
             }
         }
+        
     }
 }

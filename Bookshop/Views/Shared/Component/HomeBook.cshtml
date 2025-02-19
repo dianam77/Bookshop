@@ -14,7 +14,7 @@
                     </h3>
                     <div style=" display:flex;justify-content:space-between; align-items:center">
                         <p>
-                            @item.Author.Name
+                            @item.Author?.Name
                         </p>
                         <button style="cursor:pointer;background-color:#f9f9f9;color:black;" onclick="OpenModal(@item.Id)" id="myBtn"><i class="fa fa-search"></i></button>
                     </div>

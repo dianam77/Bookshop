@@ -29,32 +29,27 @@
         const applyTheme = () => {
             const isDarkMode = document.body.classList.contains('dark-mode');
 
-            // General element updates
             document.querySelectorAll('.myHeader, .headerItems, .modal-body').forEach(element => {
-                element.style.backgroundColor = isDarkMode ? '#444' : ''; // Match dark mode background
-                element.style.color = isDarkMode ? '#ffffff' : ''; // Text color
+                element.style.backgroundColor = isDarkMode ? '#444' : ''; 
+                element.style.color = isDarkMode ? '#ffffff' : ''; 
             });
 
-            // Specific modal-content handling via class
             const modalContentElements = document.querySelectorAll('.modal-content');
             modalContentElements.forEach(element => {
                 if (isDarkMode) {
-                    element.classList.add('dark-mode'); // Add dark-mode class
+                    element.classList.add('dark-mode'); 
                 } else {
-                    element.classList.remove('dark-mode'); // Remove dark-mode class
+                    element.classList.remove('dark-mode'); 
                 }
             });
 
-            // Highlight book price
             document.querySelectorAll('.bookPrice strong').forEach(element => {
-                element.style.color = isDarkMode ? '#ffcc00' : ''; // Highlight price in a contrasting color
+                element.style.color = isDarkMode ? '#ffcc00' : ''; 
             });
         };
 
-        // Apply the theme on load
         applyTheme();
 
-        // Observe changes in body class for theme toggling
         const observer = new MutationObserver(() => {
             applyTheme();
         });

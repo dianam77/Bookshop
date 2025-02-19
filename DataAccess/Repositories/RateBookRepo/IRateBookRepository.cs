@@ -6,7 +6,7 @@ namespace DataAccess.Repositories.RateBookRepo
     {
         Task Add(RateBookModel rateBook);
         Task<RateBookModel> GetRatingByUserAndBook(string userId, int bookId);
-        Task Update(RateBookModel rateBook);  // Add Update method to the interface
-        Task Delete(int ratingId);  // Add Delete method to the interface
+        Task Update(RateBookModel rateBook);  
+        Task Delete(int ratingId);
     }
 }

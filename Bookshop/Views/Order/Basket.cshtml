@@ -22,8 +22,8 @@
                 <tr id="basket_@item.Id">
                     <td>
                         <div class="ImgAndName">
-                            <img class="product-img" src="/downloadFile/@item.Book.Img" alt="@item.Book.Title" />
-                            <p> @item.Book.Title</p>
+                            <img class="product-img" src="/downloadFile/@item.Book?.Img" alt="@item.Book?.Title" />
+                            <p> @item.Book?.Title</p>
                         </div>
                     </td>
                     <td>@item.Qty</td>
@@ -46,7 +46,7 @@
 <br />
 
 <button id="darkModeToggle" style="position: fixed; top: 10px; right: 10px; background-color: white; color: black; padding: 10px; border-radius: 50%; cursor: pointer;">
-    <i class="fa fa-moon-o"></i> <!-- Icon for dark mode -->
+    <i class="fa fa-moon-o"></i> 
 </button>
 
 @section Scripts {
@@ -88,138 +88,122 @@
                         console.error('Error:', error);
                     });
             } catch {
-                // Error handling
+             
             }
         }
 
         document.addEventListener('DOMContentLoaded', () => {
             const darkModeToggle = document.getElementById('darkModeToggle');
 
-            // Event listener for dark mode toggle button
             darkModeToggle.addEventListener('click', () => {
                 document.body.classList.toggle('dark-mode');
 
-                // Apply dark mode styles
                 if (document.body.classList.contains('dark-mode')) {
-                    document.body.style.backgroundColor = '#333'; // Dark background for body
-                    document.body.style.color = '#ffffff'; // White text for dark mode
+                    document.body.style.backgroundColor = '#333'; 
+                    document.body.style.color = '#ffffff';
 
-                    // Apply dark background for the cart container
                     document.querySelectorAll('.cart-container').forEach(element => {
-                        element.style.backgroundColor = '#333'; // Dark gray background for cart container
+                        element.style.backgroundColor = '#333'; 
                     });
 
-                    // Apply dark background for <main> element
                     document.querySelector('main').style.backgroundColor = '#333';
 
-                    // Apply dark background for .container
                     document.querySelectorAll('.container').forEach(element => {
-                        element.style.backgroundColor = '#444'; // Darker background for the container
-                        element.style.color = '#ffffff'; // White text for the container
+                        element.style.backgroundColor = '#444'; 
+                        element.style.color = '#ffffff'; 
                     });
 
-                    // Apply white text for headings and table text
                     document.querySelectorAll('h2').forEach(element => {
-                        element.style.color = '#ffffff'; // White text for h2
+                        element.style.color = '#ffffff'; 
                     });
                     document.querySelectorAll('th').forEach(element => {
-                        element.style.backgroundColor = '#555'; // Gray background for table headers
-                        element.style.color = '#ffffff'; // White text for table headers
+                        element.style.backgroundColor = '#555'; 
+                        element.style.color = '#ffffff'; 
                     });
                     document.querySelectorAll('td').forEach(element => {
-                        element.style.color = '#ffffff'; // White text for table data
+                        element.style.color = '#ffffff';
                     });
 
                     document.querySelectorAll('.subtotal').forEach(element => {
-                        element.style.color = '#ffffff'; // White text for subtotal
+                        element.style.color = '#ffffff'; 
                     });
 
-                    // Update button appearance
-                    darkModeToggle.innerHTML = '<i class="fa fa-sun-o"></i>'; // Sun icon for dark mode
-                    darkModeToggle.style.backgroundColor = '#444'; // Dark background for the button
-                    darkModeToggle.style.color = '#ffffff'; // White icon color
+                    darkModeToggle.innerHTML = '<i class="fa fa-sun-o"></i>';
+                    darkModeToggle.style.backgroundColor = '#444';
+                    darkModeToggle.style.color = '#ffffff'; 
                 } else {
-                    document.body.style.backgroundColor = '#f5f5f5'; // Light gray background for body
-                    document.body.style.color = '#333'; // Dark gray text for light mode
+                    document.body.style.backgroundColor = '#f5f5f5';
+                    document.body.style.color = '#333'; 
 
-                    // Reset background color and text color for cart container and text
                     document.querySelectorAll('.cart-container').forEach(element => {
-                        element.style.backgroundColor = ''; // Reset background color for cart container
+                        element.style.backgroundColor = ''; 
                     });
 
-                    // Reset background color and text color for <main> element
-                    document.querySelector('main').style.backgroundColor = ''; // Reset background color for <main> element
+                    document.querySelector('main').style.backgroundColor = ''; 
 
-                    // Reset background color for .container
                     document.querySelectorAll('.container').forEach(element => {
-                        element.style.backgroundColor = ''; // Reset background color for container
-                        element.style.color = ''; // Reset text color for container
+                        element.style.backgroundColor = ''; 
+                        element.style.color = '';
                     });
 
                     document.querySelectorAll('h2').forEach(element => {
-                        element.style.color = ''; // Reset h2 text color
+                        element.style.color = ''; 
                     });
                     document.querySelectorAll('th').forEach(element => {
-                        element.style.backgroundColor = ''; // Reset table header background color
-                        element.style.color = ''; // Reset table header text color
+                        element.style.backgroundColor = ''; 
+                        element.style.color = ''; 
                     });
                     document.querySelectorAll('td').forEach(element => {
-                        element.style.color = ''; // Reset table data color
+                        element.style.color = '';
                     });
 
                     document.querySelectorAll('.subtotal').forEach(element => {
-                        element.style.color = ''; // Reset subtotal text color
+                        element.style.color = ''; 
                     });
 
-                    // Update button appearance
-                    darkModeToggle.innerHTML = '<i class="fa fa-moon-o"></i>'; // Moon icon for light mode
-                    darkModeToggle.style.backgroundColor = 'white'; // Light background for the button
-                    darkModeToggle.style.color = 'black'; // Black icon color
+                    darkModeToggle.innerHTML = '<i class="fa fa-moon-o"></i>'; 
+                    darkModeToggle.style.backgroundColor = 'white';
+                    darkModeToggle.style.color = 'black'; 
                 }
 
-                // Save the theme in localStorage
                 localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
             });
 
-            // Load theme from localStorage
             if (localStorage.getItem('theme') === 'dark') {
                 document.body.classList.add('dark-mode');
-                darkModeToggle.innerHTML = '<i class="fa fa-sun-o"></i>'; // Sun icon for dark mode
-                darkModeToggle.style.backgroundColor = '#444'; // Dark background for the button
-                darkModeToggle.style.color = '#ffffff'; // White icon color
+                darkModeToggle.innerHTML = '<i class="fa fa-sun-o"></i>';
+                darkModeToggle.style.backgroundColor = '#444'; 
+                darkModeToggle.style.color = '#ffffff';
 
-                // Apply dark mode styles to the cart container and text
                 document.querySelectorAll('.cart-container').forEach(element => {
-                    element.style.backgroundColor = '#333'; // Dark gray background for cart container
+                    element.style.backgroundColor = '#333'; 
                 });
 
-                // Apply dark background for <main> element
                 document.querySelector('main').style.backgroundColor = '#333';
 
-                // Apply dark background for .container
                 document.querySelectorAll('.container').forEach(element => {
-                    element.style.backgroundColor = '#444'; // Darker background for the container
-                    element.style.color = '#ffffff'; // White text for the container
+                    element.style.backgroundColor = '#444'; 
+                    element.style.color = '#ffffff'; 
                 });
 
                 document.querySelectorAll('h2').forEach(element => {
-                    element.style.color = '#ffffff'; // White text for h2
+                    element.style.color = '#ffffff'; 
                 });
                 document.querySelectorAll('th').forEach(element => {
-                    element.style.backgroundColor = '#555'; // Gray background for table headers
-                    element.style.color = '#ffffff'; // White text for table headers
+                    element.style.backgroundColor = '#555'; 
+                    element.style.color = '#ffffff'; 
                 });
                 document.querySelectorAll('td').forEach(element => {
-                    element.style.color = '#ffffff'; // White text for table data
+                    element.style.color = '#ffffff'; 
                 });
                 document.querySelectorAll('.subtotal').forEach(element => {
-                    element.style.color = '#ffffff'; // White text for subtotal
+                    element.style.color = '#ffffff'; 
                 });
             } else {
                 document.body.classList.remove('dark-mode');
-                darkModeToggle.innerHTML = '<i class="fa fa-moon-o"></i>'; // Moon icon for light mode
-                darkModeToggle.style.backgroundColor = 'white'; // Light background for the button
-                darkModeToggle.style.color = 'black'; // Black icon color
+                darkModeToggle.innerHTML = '<i class="fa fa-moon-o"></i>'; 
+                darkModeToggle.style.backgroundColor = 'white'; 
+                darkModeToggle.style.color = 'black'; 
             }
         });
 

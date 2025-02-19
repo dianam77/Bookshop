@@ -70,7 +70,6 @@
 
 @if (User?.Identity?.IsAuthenticated ?? false)
 {
-    <!-- Display the rating component -->
     <jsuites-rating id="user-rating" value="@Model.UserRating" tooltip="Ugly, Bad, Average, Good, Outstanding" data-rating-value="@Model.UserRating"></jsuites-rating>
 
     <p>میانگین امتیاز: <span id="average-rating">@Model.CurrentBook.AverageRating</span> (تعداد امتیازات: <span id="rating-count">@Model.CurrentBook.RatingCount</span>)</p>
@@ -147,66 +146,62 @@ else
     <link rel="stylesheet" href="https://jsuites.net/v5/jsuites.css" />
 
     <script>
-        // Dark Mode Toggle
         document.addEventListener('DOMContentLoaded', () => {
             const darkModeToggle = document.getElementById('darkModeToggle');
             if (darkModeToggle) {
                 darkModeToggle.addEventListener('click', () => {
                     document.body.classList.toggle('dark');
                     localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
-                    updateDarkModeToggleButton(); // Update button appearance
-                    applyDarkModeStyles(); // Apply dark mode styles to navbar and links
+                    updateDarkModeToggleButton();
+                    applyDarkModeStyles(); 
                 });
             }
 
-            // Load theme from localStorage
             if (localStorage.getItem('theme') === 'dark') {
                 document.body.classList.add('dark');
-                updateDarkModeToggleButton(); // Update button appearance
-                applyDarkModeStyles(); // Apply dark mode styles to navbar and links
+                updateDarkModeToggleButton(); 
+                applyDarkModeStyles(); 
             }
         });
 
-        // Updates the dark mode toggle button's appearance
         function updateDarkModeToggleButton() {
             const darkModeToggle = document.getElementById('darkModeToggle');
             if (document.body.classList.contains('dark')) {
-                darkModeToggle.innerHTML = '<i class="fa fa-sun-o"></i>'; // Sun icon in dark mode
-                darkModeToggle.style.backgroundColor = '#444'; // Dark background
-                darkModeToggle.style.color = '#fff'; // White color for icon
-                darkModeToggle.style.borderRadius = '50%'; // Circular shape
+                darkModeToggle.innerHTML = '<i class="fa fa-sun-o"></i>'; 
+                darkModeToggle.style.backgroundColor = '#444';
+                darkModeToggle.style.color = '#fff';
+                darkModeToggle.style.borderRadius = '50%'; 
                 darkModeToggle.style.padding = '10px';
             } else {
-                darkModeToggle.innerHTML = '<i class="fa fa-moon-o"></i>'; // Moon icon in light mode
-                darkModeToggle.style.backgroundColor = '#fff'; // Light background
-                darkModeToggle.style.color = '#000'; // Black color for icon
-                darkModeToggle.style.borderRadius = '0'; // Rectangular shape
+                darkModeToggle.innerHTML = '<i class="fa fa-moon-o"></i>'; 
+                darkModeToggle.style.backgroundColor = '#fff'; 
+                darkModeToggle.style.color = '#000';
+                darkModeToggle.style.borderRadius = '0'; 
                 darkModeToggle.style.padding = '5px';
             }
         }
 
-        // Apply dark mode styles to navbar and navigation links
         function applyDarkModeStyles() {
             const navbar = document.querySelector('.navbar');
             const nav = document.querySelector('.nav');
             const navLinks = document.querySelectorAll('.navbar a');
 
             if (navbar) {
-                navbar.style.backgroundColor = '#333'; // Dark gray navbar
-                navbar.style.color = '#fff'; // White text color
+                navbar.style.backgroundColor = '#333'; 
+                navbar.style.color = '#fff';
             }
 
             if (nav) {
-                nav.style.backgroundColor = '#333'; // Dark gray navbar
-                nav.style.color = '#fff'; // White text color
+                nav.style.backgroundColor = '#333'; 
+                nav.style.color = '#fff';
             }
             navLinks.forEach(link => {
-                link.style.color = '#ccc'; // Light color for navbar links
+                link.style.color = '#ccc'; 
                 link.addEventListener('mouseover', () => {
-                    link.style.color = '#fff'; // Change color on hover
+                    link.style.color = '#fff';
                 });
                 link.addEventListener('mouseout', () => {
-                    link.style.color = '#ccc'; // Revert on mouse out
+                    link.style.color = '#ccc'; 
                 });
             });
         }
@@ -214,13 +209,11 @@ else
             document.addEventListener('DOMContentLoaded', function () {
             const ratingComponent = document.getElementById('user-rating');
             const bookId = document.getElementById('bookId').value;
-            const userId = '@Model.CurrentUserId'; // شناسه کاربر وارد شده
+            const userId = '@Model.CurrentUserId'; 
 
-            // زمانی که کاربر روی امتیاز کلیک می‌کند
             ratingComponent.addEventListener('click', function () {
                 const rating = ratingComponent.getAttribute('value');
 
-                // اگر کاربر وارد نشده باشد، پیغام خطا نمایش داده شود
                 if (!userId) {
                     Swal.fire({
                         title: "خطا",
@@ -230,7 +223,6 @@ else
                     return;
                 }
 
-                // ارسال امتیاز به سرور برای ذخیره یا ویرایش
                 fetch('/Book/RateBook', {
                     method: 'POST',
                     headers: {
@@ -241,7 +233,6 @@ else
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        // به‌روزرسانی میانگین امتیاز و تعداد امتیازدهی‌ها
                         document.getElementById('average-rating').innerText = data.averageRating;
                         document.getElementById('rating-count').innerText = data.ratingCount;
                         Swal.fire({
@@ -278,9 +269,6 @@ else
             }
         });
 
-
-
-        // Add to Basket
         function AddToBasket() {
             const bookId = document.getElementById("bookId").value;
             const qty = document.getElementById("countInput").value;
