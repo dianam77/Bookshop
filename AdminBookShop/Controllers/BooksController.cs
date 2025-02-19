@@ -122,7 +122,7 @@ namespace AdminBookShop.Controllers
             return View(book);
         }
 
-        
+
 
         // GET: Books/Delete/5
         [HttpGet]

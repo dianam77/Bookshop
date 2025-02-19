@@ -198,19 +198,23 @@ namespace Core.ServiceFile
         {
             if (file is null)
             {
+                LogService.AddLog("Error: File cannot be null.");
                 throw new ArgumentNullException(nameof(file), "File cannot be null.");
             }
 
-            var request = new RestRequest($"/UploadFile?path={path}", Method.Post);
+            LogService.AddLog($"Uploading file: {file.FileName} to path: {path}");
 
+            var request = new RestRequest($"/UploadFile?path={path}", Method.Post);
             byte[] bytes;
+
             using (var ms = new MemoryStream())
             {
-                await file.CopyToAsync(ms); 
+                await file.CopyToAsync(ms);
                 bytes = ms.ToArray();
             }
 
             request.AddFile(file.FileName, bytes, file.FileName, file.ContentType);
+            LogService.AddLog($"File {file.FileName} added to request. Size: {bytes.Length} bytes");
 
             try
             {
@@ -218,18 +222,22 @@ namespace Core.ServiceFile
 
                 if (response.IsSuccessful)
                 {
-                    return response.Data ?? new StaticFileUploadInfoDto(); 
+                    LogService.AddLog($"File uploaded successfully. Response: {response.Data}");
+                    return response.Data ?? new StaticFileUploadInfoDto();
                 }
                 else
                 {
-                    throw new Exception($"File upload failed. Status code: {response.StatusCode}, Message: {response.ErrorMessage}");
+                    LogService.AddLog($"Error: Upload failed. Status: {response.StatusCode}, Message: {response.ErrorMessage}");
+                    throw new Exception($"Upload failed. Status: {response.StatusCode}, Message: {response.ErrorMessage}");
                 }
             }
             catch (Exception ex)
             {
-                throw new Exception($"An error occurred while uploading the file. Details: {ex.Message}", ex);
+                LogService.AddLog($"Exception: {ex.Message}");
+                throw;
             }
         }
+
 
 
         public async Task<string> DeleteFile(string filePath)

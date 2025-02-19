@@ -6,6 +6,9 @@ using DataAccess.Data.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// تعیین پورت دلخواه (مثلاً 5001)
+builder.WebHost.UseUrls("https://localhost:44383");
+
 // Load Configuration
 builder.Configuration
     .SetBasePath(Directory.GetCurrentDirectory())
