@@ -5,6 +5,8 @@
 # Ignore all bin and obj directories across the entire project
 **/bin/
 **/obj/
+BookShop/AdminBookShop/wwwroot/File/
+BookShop/AdminBookShop/wwwroot/Files/
 
 # User-specific files
 *.rsuser
